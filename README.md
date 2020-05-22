@@ -1,7 +1,7 @@
 # Dawn
 dawn取自黎明破晓之意
 #### 简介：
-**dawn为一个springCloud微服务框架，于个人学习使用！！！**
+**dawn为一个springCloud微服务框架，从零开始搭建；于个人学习使用！！！**
 
 基于SpringBoot/SpringCloud；使用nacos作为配置与服务中心
 
