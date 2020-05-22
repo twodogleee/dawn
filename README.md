@@ -17,6 +17,6 @@ dawn取自黎明破晓之意
 - dawn-auth：认证模块
 - dawn-gateway：网关模块
  > 使用springCloud-gateway中间件，完成了动态路由配置
-
+ >//TODO 加入Hystrix熔断与JWT验证
 
 
