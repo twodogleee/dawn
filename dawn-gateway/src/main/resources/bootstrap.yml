@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: dawn-gateway
+  cloud:
+    nacos:
+      #配置中心配置
+      config:
+        #配置中心地址
+        server-addr: 192.168.1.91:8848
+        #命名空间。默认为public 可以不写
+        #        namespace: public
+        #配置群组
+        group: dawn
+        #配置文件名 没有默认为${spring.application.name} 指定读取基础配置
+        #prefix: dawn_basic
+        #指定文件后缀
+        file-extension: yaml
+        #设置配置优先级
+        extension-configs[0]:
+          #读取基础配置
+          data-id: dawn_basic.yaml
+          group: dawn
+          # 配置修改后是否自动更新
+          refresh: true
+
+      #服务中心配置
+      discovery:
+        server-addr: 192.168.1.91:8848
+
+    #网关配置
+    gateway:
+      discovery:
+        locator:
+          #服务名转小写
+          #lower-case-service-id: true
+          # 是否和服务注册与发现组件结合，设置为 true 后可以直接使用应用名称调用服务
+          enabled: true

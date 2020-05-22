@@ -1,0 +1,35 @@
+[
+  {
+    "id": "gateway-dawn-auth",
+    "order": 0,
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/auth/**"
+        }
+      }
+    ],
+    "filters": [
+      {
+        "name": "StripPrefix",
+        "args": {
+          "_genkey_0": "1"
+        }
+      }
+    ],
+    "uri": "lb://dawn-auth"
+  },
+  {
+    "id": "example-route",
+    "order": 0,
+    "predicates": [{
+      "name": "Path",
+      "args": {
+        "pattern": "/example"
+      }
+    }],
+    "filters": [],
+    "uri": "http://www.sucx.net"
+  }
+]

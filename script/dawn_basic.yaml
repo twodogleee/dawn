@@ -1,0 +1,4 @@
+#配置中心的基础配置文件
+dawn:
+  gateway:
+    routeDataId: gateway_route
