@@ -43,8 +43,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-
-
+        <dependency>
+            <groupId>net.sucx</groupId>
+            <artifactId>dawn-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
