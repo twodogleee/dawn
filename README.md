@@ -20,6 +20,9 @@ dawn取自黎明破晓之意
 - dawn-common:基础模块
 - dawn-gateway：网关模块
 
+#### 架构图
+![](https://github.com/suucx/dawn/blob/master/script/1.png)
+
 #### 功能清单：
 |所属模块|功能|情况|
 |-|-|-|
