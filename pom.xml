@@ -28,6 +28,7 @@
         <module>dawn-gateway</module>
         <module>dawn-auth</module>
         <module>dawn-common</module>
+        <module>dawn-admin</module>
     </modules>
 
     <dependencies>

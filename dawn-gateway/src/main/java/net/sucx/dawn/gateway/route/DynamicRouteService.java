@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 /**
  * 动态路由处理，提供新增、更新、删除路由
  *
- * @author Andersen
  */
 @Service
 public class DynamicRouteService implements ApplicationEventPublisherAware {

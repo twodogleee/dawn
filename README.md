@@ -28,7 +28,7 @@ dawn取自黎明破晓之意
 |-|-|-|
 |dawn-gateway|动态路由|√|
 |dawn-common|jwt工具|√|
-|dawn-gateway|jwt验签|×|
+|dawn-gateway|jwt验签|√|
 |dawn-gateway|Hystrix熔断|×|
 
 

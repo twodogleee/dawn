@@ -1,6 +1,9 @@
 !README.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
+**/.mvn/**
+.mvn/
+mvnw
+mvnw.cmd
 !**/src/main/**
 **/test/**
 !script/**
