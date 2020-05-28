@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 需要放行的Url
+ * 网关常量类
  *
  * @author Andersen
  */

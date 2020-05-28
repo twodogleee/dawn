@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.security.PrivateKey;
+import java.util.Map;
 
 /**
  * JWT加密解密
@@ -28,19 +29,16 @@ public class JwtService {
      */
     @Autowired
     private JwtProperties jwtProperties;
-    /**
-     * jwt过期时间 分钟
-     */
-    public static long accessTokenExpirationTime = 60 * 24 * 10;
+
 
     /**
      * 创建token jwt
      *
-     * @param user_id 附加信息
+     * @param extras 附加信息
      * @return token信息
      * @throws JwtServiceException jwt业务异常
      */
-    public String createToken(String user_id) throws JwtServiceException {
+    public String createToken(Map<String,Object> extras) throws JwtServiceException {
         String privateKeyStr = jwtProperties.getPrivateKeyStr();
         if (privateKeyStr == null || privateKeyStr.trim().isEmpty()) {
             throw new JwtServiceException("获取RSA私钥失败！");
@@ -53,15 +51,15 @@ public class JwtService {
             //发行时间
             claims.setIssuedAtToNow();
             //过期时间
-            claims.setExpirationTimeMinutesInTheFuture(accessTokenExpirationTime);
+            claims.setExpirationTimeMinutesInTheFuture(jwtProperties.getAccessTokenExpirationTime());
             //在此时间不可用 生效时间
             claims.setNotBeforeMinutesInThePast(1);
             //所有人
             claims.setSubject("Dawn");
             //接收人
 //            claims.setAudience("YOUR_AUDIENCE");
-            //添加自定义参数,必须是字符串类型
-            claims.setClaim("user_id", user_id);
+            //添加自定义参数
+            extras.forEach(claims::setClaim);
             //jws
             JsonWebSignature jws = new JsonWebSignature();
             //签名算法RS256
