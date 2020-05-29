@@ -17,19 +17,29 @@ dawn取自黎明破晓之意
 #### 服务模块：
 
 - dawn-auth：认证模块
+
+|功能|情况|
+|-|-|
+|JWT下发|×|
+
 - dawn-common:基础模块
+
+|功能|情况|
+|-|-|
+|JWT工具|√|
+|AOP角色判定|√|
+
 - dawn-gateway：网关模块
+
+|功能|情况|
+|-|-|
+|动态路由|√|
+|JWT验签|√|
 
 #### 简易架构图：
 ![](https://github.com/suucx/dawn/blob/master/script/1.png)
 
-#### 功能清单：
-|所属模块|功能|情况|
-|-|-|-|
-|dawn-gateway|动态路由|√|
-|dawn-common|jwt工具|√|
-|dawn-gateway|jwt验签|√|
-|dawn-gateway|Hystrix熔断|×|
+
 
 
 

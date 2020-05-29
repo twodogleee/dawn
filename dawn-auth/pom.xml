@@ -6,11 +6,11 @@
     <parent>
         <artifactId>dawn</artifactId>
         <groupId>net.sucx</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>dawn-auth</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>dawn-auth</name>
     <packaging>jar</packaging>
 
@@ -19,10 +19,22 @@
     </properties>
 
     <dependencies>
+        <!--        springboot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--        nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -31,10 +43,16 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!--        本地包-->
         <dependency>
             <groupId>net.sucx</groupId>
             <artifactId>dawn-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sucx</groupId>
+            <artifactId>dawn-jwt-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

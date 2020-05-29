@@ -6,10 +6,10 @@
     <parent>
         <artifactId>dawn</artifactId>
         <groupId>net.sucx</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>dawn-admin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>dawn-admin</name>
     <description>dawn-admin</description>
 

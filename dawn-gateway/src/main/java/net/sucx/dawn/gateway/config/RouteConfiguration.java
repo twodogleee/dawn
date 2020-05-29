@@ -22,13 +22,13 @@ public class RouteConfiguration {
     /**
      * 支持的header 自定义的header需要在这儿添加 否则前端传不进来
      */
-    private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client";
+    private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client,extras";
     /**
      * 请求方式 POST GET等
      */
     private static final String ALLOWED_METHODS = "*";
     private static final String ALLOWED_ORIGIN = "*";
-    private static final String ALLOWED_Expose = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client";
+    private static final String ALLOWED_Expose = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client,extras";
     private static final String MAX_AGE = "18000L";
 
     /**

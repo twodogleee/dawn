@@ -5,7 +5,7 @@
 
     <groupId>net.sucx</groupId>
     <artifactId>dawn</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>dawn</name>
     <description>dawn framework</description>
     <packaging>pom</packaging>
@@ -20,6 +20,8 @@
         <spring.boot.version>2.3.0.RELEASE</spring.boot.version>
         <!--        nacos版本服务中心/配置中心-->
         <nacos.version>2.2.1.RELEASE</nacos.version>
+        <!--        fastjson版本-->
+        <fastjson.version>1.2.68</fastjson.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -27,11 +29,12 @@
     <modules>
         <module>dawn-gateway</module>
         <module>dawn-auth</module>
-        <module>dawn-common</module>
         <module>dawn-admin</module>
+        <module>dawn-common</module>
     </modules>
 
     <dependencies>
+        <!--        springcloud 基础starter-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter</artifactId>
@@ -90,26 +93,32 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.68</version>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <!--    <dependency>中<scope>的值的含义：-->
+    <!--    compile，缺省值，适用于所有阶段，会随着项目一起发布。-->
+    <!--    provided，类似compile，期望JDK、容器或使用者会提供这个依赖。如servlet.jar。-->
+    <!--    runtime，只在运行时使用，如JDBC驱动，适用运行和测试阶段。-->
+    <!--    test，只在测试时使用，用于编译和运行测试代码。不会随项目发布。-->
+    <!--    system，类似provided，需要显式提供包含依赖的jar，Maven不会在Repository中查找它-->
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.springframework.boot</groupId>-->
+    <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--                <version>${spring.boot.version}</version>-->
+    <!--                <executions>-->
+    <!--                    <execution>-->
+    <!--                        <goals>-->
+    <!--                            <goal>repackage</goal>-->
+    <!--                        </goals>-->
+    <!--                    </execution>-->
+    <!--                </executions>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
 
 </project>

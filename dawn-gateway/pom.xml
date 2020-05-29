@@ -6,11 +6,11 @@
     <parent>
         <artifactId>dawn</artifactId>
         <groupId>net.sucx</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>dawn-gateway</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>dawn-gateway</name>
     <packaging>jar</packaging>
 
@@ -45,8 +45,8 @@
         </dependency>
         <dependency>
             <groupId>net.sucx</groupId>
-            <artifactId>dawn-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>dawn-jwt-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

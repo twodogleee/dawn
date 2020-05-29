@@ -1,4 +1,4 @@
-package net.sucx.dawn.common.jwt;
+package net.sucx.dawn.jwt.service;
 
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jwk.RsaJwkGenerator;
