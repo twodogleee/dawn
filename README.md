@@ -6,6 +6,7 @@ dawn取自黎明破晓之意
 - 基于SpringBoot/SpringCloud；
 - 使用nacos作为配置与服务中心；
 - 使用springCloud-gateway中间件作为网关；
+- 使用feign作为服务器直接调用默认ribbon为客户端负载均衡；
 
 #### 版本及环境信息：
 - idea 
