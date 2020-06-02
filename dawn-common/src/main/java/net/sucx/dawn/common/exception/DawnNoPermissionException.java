@@ -1,6 +1,8 @@
 package net.sucx.dawn.common.exception;
 
-public class DawnNoPermissionException extends RuntimeException{
+import net.sucx.dawn.basic.excetion.DawnBasicRuntimeException;
+
+public class DawnNoPermissionException extends DawnBasicRuntimeException {
 	public DawnNoPermissionException() {
 		super();
 	}

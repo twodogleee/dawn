@@ -1,5 +1,7 @@
 package net.sucx.dawn.gateway.constant;
 
+import net.sucx.dawn.basic.constant.BasicConstant;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
 public class GatewayConstant {
 
 	public final static String TOKEN_NAME = "Authorization";
-	public final static String EXTRAS_HEADER_KEY = "extras";
+	public final static String EXTRAS_HEADER_KEY = BasicConstant.EXTRAS_HEADER_KEY;
 	/**
 	 * 需要放行的urlList
 	 */

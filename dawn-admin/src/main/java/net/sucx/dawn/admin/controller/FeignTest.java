@@ -10,18 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/feignTest")
 public class FeignTest {
-    @Autowired
-    AuthFeignClient authFeignClient;
+	@Autowired
+	AuthFeignClient authFeignClient;
 
-    @GetMapping("/test1")
-    public Object test1() {
-        return authFeignClient.test1();
-    }
+	@GetMapping("/test1")
+	public Object test1() {
+		return authFeignClient.test1();
+	}
 
-    @GetMapping("/test2")
-    public Object test2(@RequestHeader("Authorization") String authorization) {
-        return authFeignClient.test2(authorization);
-    }
+	@GetMapping("/test2")
+	public Object test2(@RequestHeader("Authorization") String authorization) {
+		return authFeignClient.test2(authorization);
+	}
 
+	@GetMapping("/test3")
+	public Object test3() {
+		return authFeignClient.test3();
+	}
 
 }

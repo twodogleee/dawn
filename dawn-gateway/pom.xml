@@ -48,6 +48,11 @@
             <artifactId>dawn-jwt-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>net.sucx</groupId>
+            <artifactId>dawn-basic</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
