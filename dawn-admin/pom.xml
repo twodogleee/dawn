@@ -5,7 +5,7 @@
     <!--    继承主pom-->
     <parent>
         <artifactId>dawn</artifactId>
-        <groupId>net.sucx</groupId>
+        <groupId>com._54year</groupId>
         <version>1.0.0</version>
     </parent>
     <artifactId>dawn-admin</artifactId>
@@ -37,7 +37,7 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sucx</groupId>
+            <groupId>com._54year</groupId>
             <artifactId>dawn-common</artifactId>
             <version>1.0.0</version>
         </dependency>

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>dawn</artifactId>
-        <groupId>net.sucx</groupId>
+        <groupId>com._54year</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -32,7 +32,7 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>net.sucx</groupId>
+            <groupId>com._54year</groupId>
             <artifactId>dawn-basic</artifactId>
             <version>1.0.0</version>
         </dependency>
