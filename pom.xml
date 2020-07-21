@@ -95,6 +95,11 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
+            <!--            springcloud oath2依赖-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!--    <dependency>中<scope>的值的含义：-->
