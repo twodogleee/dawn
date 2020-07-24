@@ -22,6 +22,12 @@
         <nacos.version>2.2.1.RELEASE</nacos.version>
         <!--        fastjson版本-->
         <fastjson.version>1.2.68</fastjson.version>
+        <!--        mysql驱动版本-->
+        <mysql-connector.version>8.0.15</mysql-connector.version>
+        <!--druid连接池-->
+        <druid.version>1.1.23</druid.version>
+        <!--        mybatis plus-->
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -31,6 +37,7 @@
         <module>dawn-auth</module>
         <module>dawn-admin</module>
         <module>dawn-common</module>
+        <module>dawn-mysql</module>
     </modules>
 
     <dependencies>
@@ -95,10 +102,22 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            <!--            springcloud oath2依赖-->
+            <!--mysql相关-->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
