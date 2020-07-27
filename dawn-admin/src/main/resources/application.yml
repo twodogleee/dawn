@@ -1,0 +1,10 @@
+security:
+  oauth2:
+    client:
+      client-id: client_test
+      client-secret: 123456
+      user-authorization-uri: http://127.0.0.1:8080/dawn-auth/oauth/authorize
+      access-token-uri: http://localhost:8080/dawn-auth/oauth/token
+    resource:
+      jwt:
+        key-uri: http://localhost:8080/dawn-auth/oauth/token_key

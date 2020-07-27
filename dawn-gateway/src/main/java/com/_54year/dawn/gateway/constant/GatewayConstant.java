@@ -20,7 +20,8 @@ public class GatewayConstant {
 	public final static List<String> PASS_URL_LIST = Arrays.asList(
 		"/login",
 		"/aaa",
-		"/bbb"
+		"/bbb",
+		"/oauth"
 	);
 
 }

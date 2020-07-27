@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @ConfigurationProperties(prefix = "dawn.jwt")
 @Data
-@RefreshScope
+@RefreshScope//动态刷新
 public class JwtProperties {
 	/**
 	 * jwt 公钥

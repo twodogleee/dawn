@@ -1,31 +1,41 @@
-#spring-datasource配置
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    #druid配置
-    druid:
-      initial-size: 5
-      max-active: 20
-      min-idle: 5
-      max-wait: 60000
-      # MySql、PostgreSQL校验
-      validation-query: select 1
-      # Oracle校验
-      #validation-query: select 1 from dual
-      validation-query-timeout: 2000
-      test-on-borrow: false
-      test-on-return: false
-      test-while-idle: true
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      stat-view-servlet:
-        enabled: true
-        login-username: admin
-        login-password: admin
-      web-stat-filter:
-        enabled: true
-        url-pattern: /*
-        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
-        session-stat-enable: true
-        session-stat-max-count: 10
-
+#druid:
+#  #	初始化时建立物理连接的个数
+#  initial-size: 5
+#  # 最大连接池数量
+#  max-active: 20
+#  # 最小连接池数量
+#  min-idle: 5
+#  # 获取连接时最大等待时间，单位毫秒
+#  max-wait: 60000
+#  # MySql、PostgreSQL校验
+#  validation-query: select 1
+#  # Oracle校验
+#  #validation-query: select 1 from dual
+#  #	单位：秒，检测连接是否有效的超时时间
+#  validation-query-timeout: 2000
+#  # Destroy线程会检测连接的间隔时间
+#  time-between-eviction-runs-millis: 60000
+#  # 连接保持空闲而不被驱逐的最长时间
+#  min-evictable-idle-time-millis: 300000
+#  # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+#  test-on-borrow: false
+#  # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+#  test-on-return: false
+#  # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+#  test-while-idle: true
+#  # 是否缓存preparedStatement
+#  pool-prepared-statements: false
+#  # 要启用PSCache，必须配置大于0
+#  # max-pool-prepared-statement-per-connection-size: 20
+#
+#  # druid监控配置
+#  stat-view-servlet:
+#    enabled: true
+#    login-username: admin
+#    login-password: admin
+#  web-stat-filter:
+#    enabled: true
+#    url-pattern: /*
+#    exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+#    session-stat-enable: true
+#    session-stat-max-count: 10
