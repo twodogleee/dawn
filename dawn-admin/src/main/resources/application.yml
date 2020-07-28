@@ -1,10 +1,15 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 security:
   oauth2:
     client:
-      client-id: client_test
-      client-secret: 123456
+      client-id: dawn-admin
+      client-secret: dawn-admin
       user-authorization-uri: http://127.0.0.1:8080/dawn-auth/oauth/authorize
-      access-token-uri: http://localhost:8080/dawn-auth/oauth/token
+      access-token-uri: http://127.0.0.1:8080/dawn-auth/oauth/token
     resource:
       jwt:
-        key-uri: http://localhost:8080/dawn-auth/oauth/token_key
+        key-uri: http://127.0.0.1:8080/dawn-auth/oauth/token_key

@@ -26,6 +26,6 @@ public class DawnUserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("用户或密码错误!");
 		}
 		return new User(userName, passwordEncoder.encode("123456"),
-			AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+			AuthorityUtils.commaSeparatedStringToAuthorityList("USER"));
 	}
 }
