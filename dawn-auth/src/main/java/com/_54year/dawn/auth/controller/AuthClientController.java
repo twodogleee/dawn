@@ -1,15 +1,18 @@
 package com._54year.dawn.auth.controller;
 
 import com._54year.dawn.common.annotation.DawnResult;
+import com._54year.dawn.jwt.config.JwtProperties;
+import com._54year.dawn.jwt.exception.DawnJwtServiceException;
+import org.apache.commons.lang3.StringUtils;
+import org.jose4j.json.JsonUtil;
+import org.jose4j.jwk.RsaJsonWebKey;
+import org.jose4j.lang.JoseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.provider.ClientDetails;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.KeyPair;
 
 @RestController
 @RequestMapping("/oauth")
@@ -19,6 +22,7 @@ public class AuthClientController {
 	 */
 	@Autowired
 	private JdbcClientDetailsService clientDetailsService;
+
 
 	/**
 	 * @param baseClientDetails

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -47,6 +48,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Autowired
 	private TokenStore tokenStore;
 
+	@Autowired
+	@Qualifier("dawnUserDetailsServiceImpl")
+	private UserDetailsService userDetailsService;
 	/**
 	 * Jwt配置
 	 */
@@ -113,14 +117,17 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		//token 增强器
 		tokenServices.setTokenEnhancer(jwtAccessTokenConverter());
 		// Accesstoken有效期
-		tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
-		//Authentication管理者
-		tokenServices.setAuthenticationManager(authenticationManager);
-		endpoints.tokenServices(tokenServices);
+//		tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
+		tokenServices.setAccessTokenValiditySeconds(30);
+		endpoints.tokenServices(tokenServices)
+		.authenticationManager(authenticationManager)
+		.userDetailsService(userDetailsService)
+		;
 	}
 
 	/**
 	 * 用来配置令牌（token）端点的安全约束
+	 *
 	 * @param security
 	 * @throws Exception
 	 */
@@ -190,8 +197,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 //	public static void main(String[] args) {
 //		System.out.println(new BCryptPasswordEncoder().encode("123456"));
 //	}
-
-
 
 
 }

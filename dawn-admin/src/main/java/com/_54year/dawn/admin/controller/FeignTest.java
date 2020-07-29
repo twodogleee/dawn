@@ -2,7 +2,6 @@ package com._54year.dawn.admin.controller;
 
 import com._54year.dawn.admin.feignclient.AuthFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class FeignTest {
 
 	@GetMapping("/test4")
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Object test5(){
 		return "Hello world";
 	}

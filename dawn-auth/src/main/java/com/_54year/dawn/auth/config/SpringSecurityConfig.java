@@ -2,6 +2,7 @@ package com._54year.dawn.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -23,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -52,13 +52,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //	@Override
 //	protected void configure(HttpSecurity http) throws Exception {
-//
-//		http.requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**")
-//			.and()
+//		http
 //			.authorizeRequests()
-//			.antMatchers("/oauth/**").authenticated()
+//			.antMatchers("/oauth/**").permitAll()
+//			.anyRequest().authenticated()
 //			.and()
-//			.formLogin().permitAll();
+//			.csrf().disable();
 //	}
 
 	/**
