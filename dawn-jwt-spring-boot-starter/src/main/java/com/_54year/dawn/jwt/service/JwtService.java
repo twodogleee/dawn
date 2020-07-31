@@ -94,6 +94,7 @@ public class JwtService {
 				.setAllowedClockSkewInSeconds(30)
 				.setVerificationKey(new RsaJsonWebKey(JsonUtil.parseJson(publicKeyStr)).getPublicKey())
 				.build();
+
 			//获取携带内容
 			JwtClaims claims = consumer.processToClaims(token);
 			if (claims != null) {

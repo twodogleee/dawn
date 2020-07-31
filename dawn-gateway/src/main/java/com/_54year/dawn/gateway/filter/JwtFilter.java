@@ -88,6 +88,9 @@
 //			if (claims == null) {
 //				return getErrResult(response, "非法请求！");
 //			}
+//			if(claims.hasClaim("ati")){
+//				return getErrResult(response, "Encoded token is a refresh token");
+//			}
 //			//将解析到的jwt附加内容添加到request的header中
 //			// 定义新的消息头
 //			HttpHeaders headers = new HttpHeaders();
