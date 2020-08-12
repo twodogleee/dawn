@@ -1,4 +1,4 @@
-package com._54year.dawn.basic.constant;
+package com._54year.dawn.core.constant;
 
 /**
  * 基础常量
@@ -9,5 +9,5 @@ public class BasicConstant {
 	/**
 	 * 附加内容 请求头
 	 */
-	public final static String EXTRAS_HEADER_KEY = "extras";
+	public final static String EXTRAS_HEADER_KEY = "user";
 }

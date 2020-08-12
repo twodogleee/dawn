@@ -1,7 +1,7 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.basic.constant.DawnResultMap;
-import com._54year.dawn.basic.excetion.DawnBasicRuntimeException;
+import com._54year.dawn.core.constant.DawnResultMap;
+import com._54year.dawn.core.excetion.DawnBusinessException;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,9 +19,9 @@ import java.util.Map;
 @Order(1)
 public class DawnExceptionHandler {
 	@ResponseBody
-	@ExceptionHandler(DawnBasicRuntimeException.class)
-	public Map<String, Object> handleDawnBasicRuntimeException(DawnBasicRuntimeException dawnBasicRuntimeException) {
-		return DawnResultMap.serviceErr(dawnBasicRuntimeException.getMessage());
+	@ExceptionHandler(DawnBusinessException.class)
+	public Map<String, Object> handleDawnBasicRuntimeException(DawnBusinessException dawnBusinessException) {
+		return DawnResultMap.serviceErr(dawnBusinessException.getMessage());
 	}
 
 	@ResponseBody

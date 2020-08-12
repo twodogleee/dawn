@@ -1,6 +1,6 @@
 package com._54year.dawn.common.constant;
 
-import com._54year.dawn.basic.constant.BasicConstant;
+import com._54year.dawn.core.constant.BasicConstant;
 
 /**
  * 通用常量

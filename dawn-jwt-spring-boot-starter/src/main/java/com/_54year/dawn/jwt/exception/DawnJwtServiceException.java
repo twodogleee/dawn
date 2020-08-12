@@ -1,8 +1,13 @@
 package com._54year.dawn.jwt.exception;
 
-import com._54year.dawn.basic.excetion.DawnBasicRuntimeException;
+import com._54year.dawn.core.excetion.DawnBusinessException;
 
-public class DawnJwtServiceException extends DawnBasicRuntimeException {
+/**
+ * Jwt解析异常
+ *
+ * @author Andersen
+ */
+public class DawnJwtServiceException extends DawnBusinessException {
 	public DawnJwtServiceException() {
 		super();
 	}

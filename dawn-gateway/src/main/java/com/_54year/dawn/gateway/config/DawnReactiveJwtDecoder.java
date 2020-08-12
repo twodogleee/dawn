@@ -9,9 +9,17 @@ import reactor.core.publisher.Mono;
 import java.security.interfaces.RSAPublicKey;
 
 
+/**
+ * 自定义jwt解析
+ *
+ * @author Andersen
+ */
 public class DawnReactiveJwtDecoder implements ReactiveJwtDecoder {
 
-	private RSAPublicKey publicKey;
+	/**
+	 * 公钥
+	 */
+	private final RSAPublicKey publicKey;
 
 	DawnReactiveJwtDecoder(RSAPublicKey publicKey) {
 		this.publicKey = publicKey;
@@ -21,7 +29,10 @@ public class DawnReactiveJwtDecoder implements ReactiveJwtDecoder {
 	public Mono<Jwt> decode(String token) throws JwtException {
 		NimbusJwtDecoder decoder = NimbusJwtDecoder.withPublicKey(publicKey).build();
 		Jwt jwt = decoder.decode(token);
-		if(jwt.containsClaim("ati")){throw new JwtException("Encoded token is a refresh token");}
+		//如果jwt中携带内容中含有 key为ati 说明该jwt是refresh token 禁止验签只能做刷新使用
+		if (jwt.containsClaim("ati")) {
+			throw new JwtException("Encoded token is a refresh token");
+		}
 		return Mono.just(jwt);
 	}
 }

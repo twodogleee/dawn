@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com._54year</groupId>
-            <artifactId>dawn-basic</artifactId>
+            <artifactId>dawn-core</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!--        json-->

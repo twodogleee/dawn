@@ -1,4 +1,4 @@
-package com._54year.dawn.basic.constant;
+package com._54year.dawn.core.constant;
 
 import java.util.HashMap;
 import java.util.Map;

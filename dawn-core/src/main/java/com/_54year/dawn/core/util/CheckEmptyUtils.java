@@ -1,4 +1,4 @@
-package com._54year.dawn.basic.util;
+package com._54year.dawn.core.util;
 
 import java.util.List;
 import java.util.Map;

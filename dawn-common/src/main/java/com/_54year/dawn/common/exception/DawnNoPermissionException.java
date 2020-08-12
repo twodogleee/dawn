@@ -1,8 +1,8 @@
 package com._54year.dawn.common.exception;
 
-import com._54year.dawn.basic.excetion.DawnBasicRuntimeException;
+import com._54year.dawn.core.excetion.DawnBusinessException;
 
-public class DawnNoPermissionException extends DawnBasicRuntimeException {
+public class DawnNoPermissionException extends DawnBusinessException {
 	public DawnNoPermissionException() {
 		super();
 	}

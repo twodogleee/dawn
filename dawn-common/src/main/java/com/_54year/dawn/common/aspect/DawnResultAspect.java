@@ -1,7 +1,7 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.basic.constant.DawnResultMap;
-import com._54year.dawn.basic.util.CheckEmptyUtils;
+import com._54year.dawn.core.constant.DawnResultMap;
+import com._54year.dawn.core.util.CheckEmptyUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

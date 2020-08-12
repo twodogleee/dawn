@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com._54year</groupId>
-    <artifactId>dawn-basic</artifactId>
+    <artifactId>dawn-core</artifactId>
     <version>1.0.0</version>
-    <name>dawn-basic</name>
+    <name>dawn-core</name>
     <packaging>jar</packaging>
     <properties>
         <!-- 编码 -->
