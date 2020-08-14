@@ -1,13 +1,14 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.core.constant.DawnResultMap;
 import com._54year.dawn.core.excetion.DawnBusinessException;
+import com._54year.dawn.core.result.DawnBasicResultCode;
+import com._54year.dawn.core.result.DawnResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * 统一异常处理
@@ -18,17 +19,19 @@ import java.util.Map;
 @ControllerAdvice
 @Order(1)
 public class DawnExceptionHandler {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DawnExceptionHandler.class);
+
 	@ResponseBody
 	@ExceptionHandler(DawnBusinessException.class)
-	public Map<String, Object> handleDawnBasicRuntimeException(DawnBusinessException dawnBusinessException) {
-		return DawnResultMap.serviceErr(dawnBusinessException.getMessage());
+	public DawnResult<Object> handleDawnBasicRuntimeException(DawnBusinessException dawnBusinessException) {
+		return DawnResult.failed(DawnBasicResultCode.BUSINESS_ERR, dawnBusinessException.getMessage());
 	}
 
 	@ResponseBody
 	@ExceptionHandler(Exception.class)
-	public Map<String, Object> handleException(Exception e) {
-		e.printStackTrace();
-		return DawnResultMap.unknowErr();
+	public DawnResult<Object> handleException(Exception e) {
+		LOGGER.error(">>>>>>>>>ServerError", e);
+		return DawnResult.failed();
 	}
 
 }

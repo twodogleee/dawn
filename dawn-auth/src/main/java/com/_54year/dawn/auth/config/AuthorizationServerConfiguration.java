@@ -117,8 +117,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		//token 增强器
 		tokenServices.setTokenEnhancer(jwtAccessTokenConverter());
 		// Accesstoken有效期
-//		tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
-		tokenServices.setAccessTokenValiditySeconds(30);
+		tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
+//		tokenServices.setAccessTokenValiditySeconds(30);
 		endpoints.tokenServices(tokenServices)
 		.authenticationManager(authenticationManager)
 		.userDetailsService(userDetailsService)

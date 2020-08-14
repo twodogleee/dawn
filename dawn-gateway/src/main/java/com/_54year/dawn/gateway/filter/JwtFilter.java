@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Component
 public class JwtFilter implements GlobalFilter, Ordered {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
 	/**
 	 * jwt服务
 	 */
@@ -62,33 +62,29 @@ public class JwtFilter implements GlobalFilter, Ordered {
 		//携带在header中
 		String headerToken = request.getHeaders().getFirst(GatewayConstant.TOKEN_NAME);
 		//携带在url中
-		String paramToken = request.getQueryParams().getFirst(GatewayConstant.TOKEN_NAME);
+//		String paramToken = request.getQueryParams().getFirst(GatewayConstant.TOKEN_NAME);
 		//携带中cookie中
-		HttpCookie cookie = request.getCookies().getFirst(GatewayConstant.TOKEN_NAME);
-		String cookieToken = cookie == null ? "" : cookie.getValue();
+//		HttpCookie cookie = request.getCookies().getFirst(GatewayConstant.TOKEN_NAME);
+//		String cookieToken = cookie == null ? "" : cookie.getValue();
 		String authorization;
 		//先获取header
 		if (StringUtils.isNotBlank(headerToken)) {
 			authorization = headerToken;
-		} else if (StringUtils.isNotBlank(paramToken)) {
-			//获取url
-			authorization = paramToken;
-		} else if (StringUtils.isNotBlank(cookieToken)) {
-			//获取cookie
-			authorization = cookieToken;
 		} else {
-			return getErrResult(response);
+			//未获取到token信息直接返回
+			return chain.filter(exchange);
 		}
 		try {
 			JwtClaims claims = jwtService.parseToken(JwkUtil.getTokenStr(authorization));
 			if (claims == null) {
-				return getErrResult(response);
+				return chain.filter(exchange);
 			}
 			//将解析到的jwt附加内容添加到request的header中
 			// 定义新的消息头
 			HttpHeaders headers = new HttpHeaders();
 			headers.putAll(request.getHeaders());
 			headers.add(GatewayConstant.EXTRAS_HEADER_KEY, Base64Utils.encodeToString(claims.getRawJson().getBytes()));
+			LOGGER.info(">>>>>>>>>login user = {}", claims.getRawJson());
 			ServerHttpRequest newRequest = new ServerHttpRequestDecorator(request) {
 				@Override
 				public HttpHeaders getHeaders() {
@@ -97,8 +93,7 @@ public class JwtFilter implements GlobalFilter, Ordered {
 			};
 			return chain.filter(exchange.mutate().request(newRequest).build());
 		} catch (Exception e) {
-			LOGGER.error("解析用户信息失败", e);
-			return getErrResult(response);
+			return chain.filter(exchange);
 		}
 	}
 

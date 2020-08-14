@@ -1,6 +1,7 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.core.constant.DawnResultMap;
+import com._54year.dawn.core.result.DawnBasicResultCode;
+import com._54year.dawn.core.result.DawnResult;
 import com._54year.dawn.core.util.CheckEmptyUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -44,16 +45,17 @@ public class DawnResultAspect {
 		Object[] args = joinPoint.getArgs();// 获取参数值
 		Object result = joinPoint.proceed(args);
 		if (result instanceof Boolean) {
-			result = (Boolean) result ? DawnResultMap.success() : DawnResultMap.fail("操作失败");
+			result = (Boolean) result ? DawnResult.success(null) : DawnResult.failed(DawnBasicResultCode.BUSINESS_ERR,"操作失败");
 		} else if (result instanceof String) {
-			result = CheckEmptyUtils.stringIsEmpty((String) result) ? DawnResultMap.fail() : DawnResultMap.success(result);
-		} else if (result instanceof Map) {
-			result = CheckEmptyUtils.mapIsEmpty((Map) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
-		} else if (result instanceof List) {
-			result = CheckEmptyUtils.listIsEmpty((List) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
-		} else {
-			result = result == null ? DawnResultMap.fail() : DawnResultMap.success(result);
+			result = CheckEmptyUtils.stringIsEmpty((String) result) ? DawnResult.failed(DawnBasicResultCode.OPERATION_ERR) : DawnResult.success(result);
 		}
+//		else if (result instanceof Map) {
+//			result = CheckEmptyUtils.mapIsEmpty((Map) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
+//		} else if (result instanceof List) {
+//			result = CheckEmptyUtils.listIsEmpty((List) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
+//		} else {
+//			result = result == null ? DawnResultMap.fail() : DawnResultMap.success(result);
+//		}
 		return result;
 	}
 
