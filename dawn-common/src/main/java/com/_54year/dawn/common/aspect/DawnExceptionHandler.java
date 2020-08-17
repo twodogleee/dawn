@@ -1,8 +1,8 @@
 package com._54year.dawn.common.aspect;
 
 import com._54year.dawn.core.excetion.DawnBusinessException;
-import com._54year.dawn.core.result.DawnBasicResultCode;
-import com._54year.dawn.core.result.DawnResult;
+import com._54year.dawn.core.enums.DawnBasicResultCode;
+import com._54year.dawn.core.result.impl.DawnResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;

@@ -64,7 +64,7 @@ public class TestController {
 	public Object test3() throws SQLException {
 		Connection connection = dataSource.getConnection();
 		Properties properties = connection.getClientInfo();
-		Map<String,Object> map = testDao.test();
+		Map<String, Object> map = testDao.test();
 		return map;
 	}
 
@@ -88,5 +88,32 @@ public class TestController {
 		Map<String, Object> a = new HashMap<>();
 		a.put("aaa", 1234);
 		return a;
+	}
+
+	@DawnResult
+	@GetMapping("/test7")
+	public Object test7() {
+		Map<String, Object> b = new HashMap<>();
+		b.put("aaa", 1234);
+		Object[] a = {"草泥马", 123, "aaa", b};
+		return a;
+	}
+
+	@DawnResult
+	@GetMapping("/test8")
+	public Object test8() {
+		return new TestInfo();
+	}
+
+	@DawnResult
+	@GetMapping("/test9")
+	public Object test9() {
+		return false;
+	}
+
+	@DawnResult
+	@GetMapping("/test10")
+	public Object test10() {
+		return "李二狗";
 	}
 }

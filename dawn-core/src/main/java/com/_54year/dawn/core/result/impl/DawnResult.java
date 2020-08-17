@@ -1,4 +1,7 @@
-package com._54year.dawn.core.result;
+package com._54year.dawn.core.result.impl;
+
+import com._54year.dawn.core.enums.DawnBasicResultCode;
+import com._54year.dawn.core.result.DawnErrorCode;
 
 import java.io.Serializable;
 
@@ -26,6 +29,16 @@ public class DawnResult<T> implements Serializable {
 		this.code = code;
 		this.message = message;
 		this.data = data;
+	}
+
+	/**
+	 * 成功
+	 *
+	 * @param <T> 数据类型
+	 * @return 统一返回结果
+	 */
+	public static <T> DawnResult<T> success() {
+		return success(null);
 	}
 
 	/**

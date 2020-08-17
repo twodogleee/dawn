@@ -1,6 +1,6 @@
 package com._54year.dawn.gateway.filter;
 
-import com._54year.dawn.core.result.DawnResult;
+import com._54year.dawn.core.result.impl.DawnResult;
 import com._54year.dawn.gateway.constant.GatewayConstant;
 import com._54year.dawn.jwt.service.JwkUtil;
 import com._54year.dawn.jwt.service.JwtService;
@@ -17,7 +17,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.NettyDataBufferFactory;
-import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -1,4 +1,6 @@
-package com._54year.dawn.core.result;
+package com._54year.dawn.core.enums;
+
+import com._54year.dawn.core.result.DawnErrorCode;
 
 /**
  * 封装常用的返回值
