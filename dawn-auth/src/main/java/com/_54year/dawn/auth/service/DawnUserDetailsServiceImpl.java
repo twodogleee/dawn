@@ -1,5 +1,10 @@
 package com._54year.dawn.auth.service;
 
+import com._54year.dawn.auth.dao.mapper.UserMapper;
+import com._54year.dawn.auth.entity.DawnUser;
+import com._54year.dawn.common.aspect.DawnExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -16,16 +21,36 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DawnUserDetailsServiceImpl implements UserDetailsService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DawnUserDetailsServiceImpl.class);
+
+	/**
+	 * 加密类
+	 */
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * 用户相关数据处理
+	 */
+	@Autowired
+	private UserMapper userMapper;
+
+	/**
+	 * 根据用户名加载用户信息
+	 *
+	 * @param userName 用户名
+	 * @return 用户信息
+	 * @throws UsernameNotFoundException 未查询到用户
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		String testUser = "Andersen";
-		if (!testUser.equals(userName)) {
-			throw new UsernameNotFoundException("用户或密码错误!");
-		}
-		return new User(userName, passwordEncoder.encode("123456"),
-			AuthorityUtils.commaSeparatedStringToAuthorityList("USER"));
+//		String testUser = "Andersen";
+//		if (!testUser.equals(userName)) {
+//			throw new UsernameNotFoundException("用户或密码错误!");
+//		}
+//		return new User(userName, passwordEncoder.encode("123456"),
+//			AuthorityUtils.commaSeparatedStringToAuthorityList("USER"));
+//		LOGGER.info(">>>>>密码:{}", passwordEncoder.encode("123456"));
+		return userMapper.selectUser(userName);
 	}
 }

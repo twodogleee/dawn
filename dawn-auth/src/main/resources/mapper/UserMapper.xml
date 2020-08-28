@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._54year.dawn.auth.dao.mapper.UserMapper">
+
+    <resultMap id="userDetail" type="com._54year.dawn.auth.entity.DawnUser">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="enabled" property="enabled"/>
+        <collection property="authorities" ofType="com._54year.dawn.auth.entity.DawnRole">
+            <id column="role_id" property="roleId" />
+            <result column="role_name" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectUserList" resultMap="userDetail">
+        SELECT
+            du.user_id,
+            du.username,
+            du.`password`,
+            du.nick_name,
+            du.enabled,
+            dr.role_id,
+            dr.role_name
+        FROM
+            `dawn_user` AS du
+            LEFT JOIN dawn_user_role AS dur ON du.user_id = dur.user_id
+            LEFT JOIN dawn_role AS dr ON dur.role_id = dr.role_id
+    </select>
+
+    <select id="selectUser" resultMap="userDetail">
+        SELECT
+            du.user_id,
+            du.username,
+            du.`password`,
+            du.nick_name,
+            du.enabled,
+            dr.role_id,
+            dr.role_name
+        FROM
+            `dawn_user` AS du
+            LEFT JOIN dawn_user_role AS dur ON du.user_id = dur.user_id
+            LEFT JOIN dawn_role AS dr ON dur.role_id = dr.role_id
+        WHERE
+            du.username = #{userName}
+    </select>
+
+
+</mapper>
