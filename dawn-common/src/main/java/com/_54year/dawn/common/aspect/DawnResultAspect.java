@@ -1,16 +1,12 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.core.constant.DawnResultMap;
-import com._54year.dawn.core.util.CheckEmptyUtils;
+import com._54year.dawn.core.result.ResultReaderFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 通过自定义注解进行结果封装
@@ -43,18 +39,7 @@ public class DawnResultAspect {
 //		String[] params = methodSignature.getParameterNames();// 获取参数名称
 		Object[] args = joinPoint.getArgs();// 获取参数值
 		Object result = joinPoint.proceed(args);
-		if (result instanceof Boolean) {
-			result = (Boolean) result ? DawnResultMap.success() : DawnResultMap.fail("操作失败");
-		} else if (result instanceof String) {
-			result = CheckEmptyUtils.stringIsEmpty((String) result) ? DawnResultMap.fail() : DawnResultMap.success(result);
-		} else if (result instanceof Map) {
-			result = CheckEmptyUtils.mapIsEmpty((Map) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
-		} else if (result instanceof List) {
-			result = CheckEmptyUtils.listIsEmpty((List) result) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(result);
-		} else {
-			result = result == null ? DawnResultMap.fail() : DawnResultMap.success(result);
-		}
-		return result;
+		return ResultReaderFactory.getResultReader(result).load(result);
 	}
 
 

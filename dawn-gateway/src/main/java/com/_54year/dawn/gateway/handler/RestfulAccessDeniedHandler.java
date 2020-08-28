@@ -1,7 +1,7 @@
 package com._54year.dawn.gateway.handler;
 
 
-import com._54year.dawn.core.result.DawnResult;
+import com._54year.dawn.core.result.impl.DawnResult;
 import com.alibaba.fastjson.JSON;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;

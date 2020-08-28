@@ -1,0 +1,13 @@
+#日志相关配置
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        web: debug
+
+#  file:
+#    path: E:\workSpace\test\logs
+
+#logging.file=demo.log

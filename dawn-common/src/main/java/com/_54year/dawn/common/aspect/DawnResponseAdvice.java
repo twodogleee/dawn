@@ -1,6 +1,6 @@
 package com._54year.dawn.common.aspect;
 
-import com._54year.dawn.core.constant.DawnResultMap;
+import com._54year.dawn.core.result.ResultReaderFactory;
 import com._54year.dawn.core.util.CheckEmptyUtils;
 import com._54year.dawn.common.annotation.DawnResult;
 import org.springframework.core.MethodParameter;
@@ -40,18 +40,6 @@ public class DawnResponseAdvice implements ResponseBodyAdvice<Object> {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 		response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
 		selectedConverterType = MappingJackson2HttpMessageConverter.class;
-		Map<String, Object> result;
-		if (body instanceof Boolean) {
-			result = (Boolean) body ? DawnResultMap.fail("操作失败") : DawnResultMap.success();
-		} else if (body instanceof String) {
-			result = CheckEmptyUtils.stringIsEmpty((String) body) ? DawnResultMap.fail() : DawnResultMap.success(body);
-		} else if (body instanceof Map) {
-			result = CheckEmptyUtils.mapIsEmpty((Map) body) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(body);
-		} else if (body instanceof List) {
-			result = CheckEmptyUtils.listIsEmpty((List) body) ? DawnResultMap.fail("没有更多数据了") : DawnResultMap.success(body);
-		} else {
-			result = body == null ? DawnResultMap.fail() : DawnResultMap.success(body);
-		}
-		return result;
+		return ResultReaderFactory.getResultReader(body).load(body);
 	}
 }
