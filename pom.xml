@@ -38,6 +38,8 @@
         <module>dawn-admin</module>
         <module>dawn-common</module>
         <module>dawn-mysql</module>
+        <module>dawn-core</module>
+        <module>dawn-jwt-spring-boot-starter</module>
     </modules>
 
     <dependencies>

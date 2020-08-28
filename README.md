@@ -16,19 +16,19 @@ dawn取自黎明破晓之意
 - Nacos 1.2.1
 
 #### 服务模块：
-- dawn-basic:基础类/常量等
+- dawn-core:基础类/常量等
 
 - dawn-auth：认证模块
 
 |功能|情况|
 |-|-|
-|JWT下发|×|
+|集成spring-oauth2完成token下发|√|
 
 - dawn-common:通用模块
 
 |功能|情况|
 |-|-|
-|注解进行角色判定|√|
+|注解进行角色判定|待定|
 |注解进行统一返回参数封装|√|
 |通用异常处理|√|
 
@@ -37,13 +37,15 @@ dawn取自黎明破晓之意
 |功能|情况|
 |-|-|
 |动态路由|√|
-|JWT验签|√|
+|JWT统一验签|√|
 
-- dawn-jwt-spring-boot-stater
+- dawn-jwt-spring-boot-stater:jwt工具
 
 |功能|情况|
 |-|-|
 |JWT工具|√|
+
+- dawn-mysql:引入druid MybatisPlus
 
 #### 简易架构图：
 ![](https://github.com/suucx/dawn/blob/master/script/1.png)

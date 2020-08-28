@@ -1,6 +1,8 @@
 package com._54year.dawn.auth.controller;
 
 import com._54year.dawn.auth.dao.TestDao;
+import com._54year.dawn.auth.dao.mapper.UserMapper;
+import com._54year.dawn.auth.entity.DawnUser;
 import com.alibaba.fastjson.JSONObject;
 import com._54year.dawn.common.annotation.DawnResult;
 import com._54year.dawn.common.annotation.HasRole;
@@ -24,6 +26,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/test")
 public class TestController {
+
+	@Autowired
+	UserMapper userMapper;
 
 	@Autowired
 	JwtService jwtService;
@@ -115,5 +120,12 @@ public class TestController {
 	@GetMapping("/test10")
 	public Object test10() {
 		return "李二狗";
+	}
+
+	@DawnResult
+	@GetMapping("/getUser")
+	public Object getUser() {
+//		List<DawnUser> users = userMapper.selectList(null);
+		return userMapper.selectUserList();
 	}
 }
