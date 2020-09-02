@@ -13,6 +13,11 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <dependencies>
+        <!--        springcloud 基础starter-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
         <!--        json-->
         <dependency>
             <groupId>com.alibaba</groupId>

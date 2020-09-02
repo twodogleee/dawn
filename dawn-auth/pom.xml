@@ -19,6 +19,11 @@
     </properties>
 
     <dependencies>
+        <!--        springcloud 基础starter-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
         <!--        springboot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

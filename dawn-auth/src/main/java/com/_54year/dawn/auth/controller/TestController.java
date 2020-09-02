@@ -1,8 +1,6 @@
 package com._54year.dawn.auth.controller;
 
-import com._54year.dawn.auth.dao.TestDao;
 import com._54year.dawn.auth.dao.mapper.UserMapper;
-import com._54year.dawn.auth.entity.DawnUser;
 import com.alibaba.fastjson.JSONObject;
 import com._54year.dawn.common.annotation.DawnResult;
 import com._54year.dawn.common.annotation.HasRole;
@@ -10,6 +8,7 @@ import com._54year.dawn.common.annotation.HasRole;
 import com._54year.dawn.jwt.exception.DawnJwtServiceException;
 import com._54year.dawn.jwt.service.JwkUtil;
 import com._54year.dawn.jwt.service.JwtService;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import org.jose4j.jwt.JwtClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import javax.websocket.server.PathParam;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.*;
 
 @RestController
@@ -33,9 +30,10 @@ public class TestController {
 	@Autowired
 	JwtService jwtService;
 	@Autowired
-	TestDao testDao;
-	@Autowired
 	DataSource dataSource;
+
+	@Autowired
+	IdentifierGenerator identifierGenerator;
 
 	@GetMapping("/login")
 	public Map<String, Object> test1(@PathParam("loginName") String loginName, HttpServletResponse httpServletResponse) throws DawnJwtServiceException {
@@ -63,15 +61,6 @@ public class TestController {
 		return "验证成功附加内容为" + claims.getRawJson();
 	}
 
-	//	@HasRole(roleName = "123")
-	@DawnResult
-	@GetMapping("/test3")
-	public Object test3() throws SQLException {
-		Connection connection = dataSource.getConnection();
-		Properties properties = connection.getClientInfo();
-		Map<String, Object> map = testDao.test();
-		return map;
-	}
 
 	@DawnResult
 	@GetMapping("/test4")
@@ -127,5 +116,11 @@ public class TestController {
 	public Object getUser() {
 //		List<DawnUser> users = userMapper.selectList(null);
 		return userMapper.selectUserList();
+	}
+
+	@DawnResult
+	@GetMapping("/getId")
+	public Object getId() {
+		return identifierGenerator.nextId(TestController.class);
 	}
 }

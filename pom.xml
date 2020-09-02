@@ -9,6 +9,8 @@
     <name>dawn</name>
     <description>dawn framework</description>
     <packaging>pom</packaging>
+
+    <!--    全局配置参数-->
     <properties>
         <!-- 编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,11 +29,12 @@
         <!--druid连接池-->
         <druid.version>1.1.23</druid.version>
         <!--        mybatis plus-->
-        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <!--    模块管理-->
     <modules>
         <module>dawn-gateway</module>
         <module>dawn-auth</module>
@@ -40,34 +43,39 @@
         <module>dawn-mysql</module>
         <module>dawn-core</module>
         <module>dawn-jwt-spring-boot-starter</module>
+        <module>dawn-generator</module>
     </modules>
 
+    <!--    公共依赖-->
     <dependencies>
-        <!--        springcloud 基础starter-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter</artifactId>
-        </dependency>
         <!--        lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+
+        <!--        springcloud 基础starter-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter</artifactId>-->
+<!--        </dependency>-->
         <!--        junit测试包-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>org.junit.vintage</groupId>-->
+        <!--                    <artifactId>junit-vintage-engine</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
     </dependencies>
 
+    <!--    选择性依赖-->
     <dependencyManagement>
         <dependencies>
             <!--            Springcloud依赖管理-->
@@ -86,6 +94,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <!--            nacos配置中心-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -115,6 +124,7 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+            <!--            Mybatis plus-->
             <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -147,4 +157,14 @@
     <!--        </plugins>-->
     <!--    </build>-->
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
