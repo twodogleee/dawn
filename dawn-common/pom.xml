@@ -19,6 +19,11 @@
             <artifactId>dawn-core</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--        springcloud 基础starter-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
         <!--        json-->
         <dependency>
             <groupId>com.alibaba</groupId>

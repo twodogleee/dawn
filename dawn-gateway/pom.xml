@@ -19,6 +19,12 @@
     </properties>
 
     <dependencies>
+        <!--        springcloud 基础starter-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter</artifactId>
+        </dependency>
+
         <!--        nacos-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

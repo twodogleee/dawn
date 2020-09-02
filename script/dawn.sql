@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 28/08/2020 17:12:35
+ Date: 02/09/2020 16:54:50
 */
 
 SET NAMES utf8mb4;
@@ -76,13 +76,16 @@ CREATE TABLE `dawn_user`  (
   `nick_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '昵称',
   `tel` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电话',
   `enabled` int(2) NULL DEFAULT NULL COMMENT '启用 1true 0false',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'dawn-用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dawn_user
 -- ----------------------------
-INSERT INTO `dawn_user` VALUES ('123456', 'admin', '$2a$10$ltNP2vV9nsFy6HIO0VDy0ON5JWYDM2C5cM1IFbOR/igaj0iCgVcbq', '管理员', NULL, 1);
+INSERT INTO `dawn_user` VALUES ('123456', 'admin', '$2a$10$ltNP2vV9nsFy6HIO0VDy0ON5JWYDM2C5cM1IFbOR/igaj0iCgVcbq', '管理员', NULL, 1, NULL, NULL);
+INSERT INTO `dawn_user` VALUES ('1301080058296332289', 'andersen', '$2a$10$naIVwrvjTI9PrcS9lfU8m.0wDV20P7sv6niQDQ5Szi951tn/NuYPK', 'Andersen', NULL, 1, '2020-09-02 16:50:34', '2020-09-02 16:50:34');
 
 -- ----------------------------
 -- Table structure for dawn_user_role
@@ -92,7 +95,8 @@ CREATE TABLE `dawn_user_role`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户ID',
   `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色ID',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `roleUnique`(`user_id`, `role_id`) USING BTREE COMMENT 'userId与roleId成唯一索引'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'dawn-用户与角色对应表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -100,6 +104,7 @@ CREATE TABLE `dawn_user_role`  (
 -- ----------------------------
 INSERT INTO `dawn_user_role` VALUES ('1', '123456', '1000');
 INSERT INTO `dawn_user_role` VALUES ('2', '123456', '1001');
+INSERT INTO `dawn_user_role` VALUES ('6c704829eb03c5e91d8d992d137a43c0', '1301080058296332289', '1001');
 
 -- ----------------------------
 -- Table structure for oauth_client_details
@@ -118,7 +123,7 @@ CREATE TABLE `oauth_client_details`  (
   `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '值必须是json格式',
   `autoapprove` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '默认false,适用于authorization_code模式,设置用户是否自动approval操作,设置true跳过用户确认授权操作页面，直接跳到redirect_uri',
   PRIMARY KEY (`client_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'oauth-客户端信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of oauth_client_details
