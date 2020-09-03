@@ -52,6 +52,7 @@ public class ResourceServerConfigurer {
 			.jwtDecoder(new DawnReactiveJwtDecoder(new RsaJsonWebKey(JsonUtil.parseJson(jwtProperties.getPublicKeyStr())).getRsaPublicKey()));
 		http.authorizeExchange()
 			.pathMatchers(GatewayConstant.PASS_URL_LIST).permitAll()//白名单配置
+//			.anyExchange().access(AuthorizationManager)
 			.anyExchange().authenticated()
 			.and()
 			.exceptionHandling()
