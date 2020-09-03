@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com._54year.dawn.gateway.dao.DawnRoleResourcesMapper">
+
+    <!--    根据url查询到拥有该url权限角色集合-->
+    <select id="selectRoleListByUrl" resultType="map">
+        SELECT
+            dr.id,
+            dr.resources_url,
+            r.role_id,
+            r.role_name
+        FROM
+            dawn_resources AS dr
+            LEFT JOIN dawn_role_resources AS drr ON dr.id = drr.resources_id
+            LEFT JOIN dawn_role AS r ON drr.role_id = r.role_id
+        WHERE
+            resources_url = #{url}
+        GROUP BY
+            r.role_id
+    </select>
+
+
+</mapper>

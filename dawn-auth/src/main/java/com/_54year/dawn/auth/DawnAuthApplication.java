@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication(scanBasePackages = "com._54year.dawn.*")
+@MapperScan("com._54year.dawn.*.dao")
 //注册服务
 @EnableDiscoveryClient
-@MapperScan("com._54year.dawn.*.dao")
 public class DawnAuthApplication {
 
     public static void main(String[] args) {
