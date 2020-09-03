@@ -75,6 +75,11 @@
             <artifactId>dawn-core</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com._54year</groupId>
+            <artifactId>dawn-mysql</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

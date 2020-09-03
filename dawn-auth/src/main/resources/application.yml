@@ -1,11 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.1.1:3306/dawn?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&autoReconnect=true
-    username: andersen
-    password: andersen
     type: com.alibaba.druid.pool.DruidDataSource
-
-
     druid:
       #	初始化时建立物理连接的个数
       initial-size: 1
