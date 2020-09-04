@@ -15,7 +15,7 @@ public class CodeGeneration {
 			.setGlobalConfig(
 				//全局配置
 				new GlobalConfig()
-					.setOutputDir("E:\\workSpace\\test\\dawn\\dawn-auth\\src\\main\\java")//生成文件输出根目录
+					.setOutputDir("E:\\workSpace\\test\\dawn\\dawn-admin\\src\\main\\java")//生成文件输出根目录
 					.setOpen(false)//生成完成后不弹出文件框
 					.setFileOverride(true)//文件覆盖
 					.setActiveRecord(false)// 不需要ActiveRecord特性的请改为false
@@ -44,7 +44,7 @@ public class CodeGeneration {
 					// .setDbColumnUnderline(true)//全局下划线命名
 					//.setTablePrefix(new String[]{"tbl_", "mp_"})// 此处可以修改为您的表前缀
 					.setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-					.setInclude(new String[]{"dawn_user_role"})// 需要生成的表
+					.setInclude(new String[]{"dawn_resources","dawn_role","dawn_role_resources","dawn_user_role"})// 需要生成的表
 				// .setExclude(new String[]{"test"}) // 排除生成的表
 				// 自定义实体父类
 				// .setSuperEntityClass("com.baomidou.demo.TestEntity")
@@ -73,7 +73,7 @@ public class CodeGeneration {
 				// .setControllerMappingHyphenStyle(true)
 			).setPackageInfo(
 				new PackageConfig()
-					.setParent("com._54year.dawn.auth")
+					.setParent("com._54year.dawn.admin")
 					.setController("controller")
 					.setService("service")
 					.setServiceImpl("service.impl")

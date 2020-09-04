@@ -1,17 +1,15 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : ali.54year.com
  Source Server Type    : MySQL
  Source Server Version : 50731
- Source Host           : ali.54year.com:3306
  Source Schema         : dawn
 
  Target Server Type    : MySQL
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 02/09/2020 16:54:50
+ Date: 04/09/2020 16:38:24
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +30,8 @@ CREATE TABLE `dawn_resources`  (
 -- Records of dawn_resources
 -- ----------------------------
 INSERT INTO `dawn_resources` VALUES ('1', '管理端', '/admin');
+INSERT INTO `dawn_resources` VALUES ('2', '用户相关', '/user');
+INSERT INTO `dawn_resources` VALUES ('3', '测试', '/dawn-auth/test/getId');
 
 -- ----------------------------
 -- Table structure for dawn_role
@@ -64,6 +64,9 @@ CREATE TABLE `dawn_role_resources`  (
 -- Records of dawn_role_resources
 -- ----------------------------
 INSERT INTO `dawn_role_resources` VALUES ('1', 1000, '1');
+INSERT INTO `dawn_role_resources` VALUES ('2', 1001, '2');
+INSERT INTO `dawn_role_resources` VALUES ('3', 1000, '2');
+INSERT INTO `dawn_role_resources` VALUES ('4', 1000, '3');
 
 -- ----------------------------
 -- Table structure for dawn_user

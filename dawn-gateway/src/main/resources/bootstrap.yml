@@ -24,7 +24,12 @@ spring:
           group: dawn
           # 配置修改后是否自动更新
           refresh: true
-
+        extension-configs[1]:
+          #读取auth配置
+          data-id: dawn-auth.yaml
+          group: dawn
+          # 配置修改后是否自动更新
+          refresh: true
       #服务中心配置
       discovery:
         server-addr: 192.168.1.1:8903

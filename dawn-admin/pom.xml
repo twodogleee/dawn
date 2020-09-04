@@ -42,11 +42,19 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <!--        二方库-->
         <dependency>
             <groupId>com._54year</groupId>
             <artifactId>dawn-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com._54year</groupId>
+            <artifactId>dawn-mysql</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
 
