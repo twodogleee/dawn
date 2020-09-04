@@ -1,12 +1,9 @@
 # Dawn
 dawn取自黎明破晓之意
+
 #### 简介：
 **dawn为一个springCloud微服务框架，从零开始搭建；于个人学习使用！！！**
 
-- 基于SpringBoot/SpringCloud；
-- 使用nacos作为配置与服务中心；
-- 使用springCloud-gateway中间件作为网关；
-- 使用feign作为服务器直接调用默认ribbon为客户端负载均衡；
 
 #### 版本及环境信息：
 - idea 
@@ -17,16 +14,17 @@ dawn取自黎明破晓之意
 - MySql 5.7
 
 #### 服务模块：
-
-|- dawn
-|-- dawn-core:基础类/常量等
-|-- dawn-common:通用功能模块
-|-- dawn-auth:认证中心
-|-- dawn-gateway：网关
-|-- dawn-jwt-spring-boot-stater:jwt工具
-|-- dawn-mysql:引入druid/MybatisPlus
-|-- dawn-generator:mybatisPlus代码生成模板
-
+```
+├ dawn
+├── dawn-core:基础类/常量等
+├── dawn-common:通用功能模块
+├── dawn-auth:认证中心
+├── dawn-gateway：网关
+├── dawn-jwt-spring-boot-stater:jwt工具
+├── dawn-mysql:引入druid/MybatisPlus
+├── dawn-generator:mybatisPlus代码生成模板
+└──
+```
 #### 功能概要
 1.使用SpringOAuth2进行授权,token采用jwt与RSA加密
 2.网关统一进行验签与Url鉴权,提供注解进行单独的接口权限验证
