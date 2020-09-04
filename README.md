@@ -26,11 +26,12 @@ dawn取自黎明破晓之意
 └──
 ```
 #### 功能概要
+```
 1.使用SpringOAuth2进行授权,token采用jwt与RSA加密
 2.网关统一进行验签与Url鉴权,提供注解进行单独的接口权限验证
 3.网关配合Nacos实现动态路由
 4.服务端直接调用使用fegin
-
+```
 #### 简易架构图：
 ![](https://github.com/suucx/dawn/blob/master/script/1.png)
 
