@@ -11,11 +11,13 @@ import org.springframework.util.Base64Utils;
 /**
  * 服务端之间的feign配置 防止服务器之间的调用被HasRole拦截
  *
+ * 讲道理给服务调用的接口属于单独的开放接口所有不会出现这种开放接口被拦截的问题
+ *
  * @author Andersen
  */
-@Configuration
+//@Configuration
+@Deprecated
 public class DawnFeignConfiguration {
-
 	@Bean
 	public ServerRoleRequestInterceptor serverRoleRequestInterceptor() {
 		return new ServerRoleRequestInterceptor();

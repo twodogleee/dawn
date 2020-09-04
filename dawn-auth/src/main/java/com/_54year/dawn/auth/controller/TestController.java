@@ -118,6 +118,7 @@ public class TestController {
 		return userMapper.selectUserList();
 	}
 
+	@HasRole(roleName = "test")
 	@DawnResult
 	@GetMapping("/getId")
 	public Object getId() {

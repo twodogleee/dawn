@@ -1,6 +1,7 @@
 package com._54year.dawn.common.aspect;
 
 
+import com._54year.dawn.core.constant.BasicConstant;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com._54year.dawn.common.annotation.HasRole;
@@ -17,6 +18,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 通过自定义角色注解进行角色认证
@@ -47,21 +49,21 @@ public class HasRoleAspect {
 		RequestAttributes ra = RequestContextHolder.getRequestAttributes();
 		ServletRequestAttributes sra = (ServletRequestAttributes) ra;
 		HttpServletRequest request = sra.getRequest();
-		//获取请求头中的附加内容
+		//获取请求头中的附的用户信息
 		String extras = request.getHeader(CommonConstant.EXTRAS_HEADER_KEY);
 		if (extras == null || extras.trim().isEmpty()) {
 			throw new DawnNoPermissionException("你没有访问权限！");
 		}
+		//解析用户信息
 		extras = new String(Base64Utils.decodeFromString(extras));
 		JSONObject userJson = JSON.parseObject(extras);
-		if (!userJson.containsKey(CommonConstant.DAWN_ROLE_KEY)) {
+		//如果用户信息中没有携带角色信息 则结束
+		if (!userJson.containsKey(BasicConstant.ROLE_LIST_KEY)) {
 			throw new DawnNoPermissionException("你没有访问权限！");
 		}
-		String roleName = userJson.getString(CommonConstant.DAWN_ROLE_KEY);
-		if (roleName == null || roleName.trim().isEmpty()) {
-			throw new DawnNoPermissionException("你没有访问权限！");
-		}
-		if (!CommonConstant.DAWN_SERVER_ROLE_NAME.equals(roleName) && !roleName.contains(hasRole.roleName())) {
+		//获取用户当前角色列表
+		List<String> roleList = userJson.getJSONArray(BasicConstant.ROLE_LIST_KEY).toJavaList(String.class);
+		if (!roleList.contains(hasRole.roleName())) {
 			throw new DawnNoPermissionException("你没有访问权限！");
 		}
 

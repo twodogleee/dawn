@@ -21,12 +21,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,7 +40,8 @@ import java.util.concurrent.TimeUnit;
  * @author Andersen
  */
 @Configuration
-@EnableAuthorizationServer //该注解用于开启OAuth2授权服务机制
+//该注解用于开启OAuth2授权服务机制
+@EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	@Qualifier("authenticationManagerBean")//指定注入bean名称
@@ -77,24 +82,28 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		//官方提供的SQL地址
 		//https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql
-		//从DB中读取Client信息
-//		clients.jdbc(dataSource);
-//		clients.inMemory() //从内存中读取
-//			.withClient("client_1")
-//			.authorizedGrantTypes("client_credentials")
-//			.scopes("all", "read", "write")
-//			.authorities("client_credentials")
-//			.accessTokenValiditySeconds(7200)
-//			.secret(new BCryptPasswordEncoder().encode("123456"))
-//
-//			.and().withClient("client_test")
-//			.secret(new BCryptPasswordEncoder().encode("123456"))
-//			.authorizedGrantTypes("all flow")
-//			.authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token", "password", "implicit")
-//			.redirectUris("http://localhost:8080/callback", "http://localhost:8080/signin", "http://localhost:8083/login")
-//			.scopes("all", "read", "write")
-//			.accessTokenValiditySeconds(7200)
-//			.refreshTokenValiditySeconds(10000);
+		/*
+		从内存中读取client示例
+
+		clients.inMemory() //从内存中读取
+			.withClient("client_1")
+			.authorizedGrantTypes("client_credentials")
+			.scopes("all", "read", "write")
+			.authorities("client_credentials")
+			.accessTokenValiditySeconds(7200)
+			.secret(new BCryptPasswordEncoder().encode("123456"))
+
+			.and().withClient("client_test")
+			.secret(new BCryptPasswordEncoder().encode("123456"))
+			.authorizedGrantTypes("all flow")
+			.authorizedGrantTypes("authorization_code", "client_credentials", "refresh_token", "password", "implicit")
+			.redirectUris("http://localhost:8080/callback", "http://localhost:8080/signin", "http://localhost:8083/login")
+			.scopes("all", "read", "write")
+			.accessTokenValiditySeconds(7200)
+			.refreshTokenValiditySeconds(10000);
+
+		 */
+
 		clients.withClientDetails(clientDetails());
 	}
 
@@ -107,6 +116,18 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		//token增强器链
+		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+		//token增强器集合
+		List<TokenEnhancer> enhancerList = new ArrayList<>(2);
+		/*
+			token信息增强要在token加密jwtAccessTokenConverter 的前面
+			否则增加的参数放不到加密的token载体中
+			enhancerChain是按顺序进行调用
+		 */
+		enhancerList.add(dawnTokenEnhancer());
+		enhancerList.add(jwtAccessTokenConverter());
+		enhancerChain.setTokenEnhancers(enhancerList);
 		DefaultTokenServices tokenServices = (DefaultTokenServices) endpoints.getDefaultAuthorizationServerTokenServices();
 		//token 储存器
 		tokenServices.setTokenStore(tokenStore());
@@ -115,14 +136,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		//获取ClientDetailsService信息
 		tokenServices.setClientDetailsService(clientDetails());
 		//token 增强器
-		tokenServices.setTokenEnhancer(jwtAccessTokenConverter());
+		tokenServices.setTokenEnhancer(enhancerChain);
 		// Accesstoken有效期
 		tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1));
 //		tokenServices.setAccessTokenValiditySeconds(30);
-		endpoints.tokenServices(tokenServices)
-		.authenticationManager(authenticationManager)
-		.userDetailsService(userDetailsService)
-		;
+		endpoints
+			.tokenServices(tokenServices)
+			.authenticationManager(authenticationManager)
+			.userDetailsService(userDetailsService);
 	}
 
 	/**
@@ -191,6 +212,16 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		);
 		converter.setKeyPair(keyPair);
 		return converter;
+	}
+
+	/**
+	 * JWT token 增强器
+	 *
+	 * @return token增强器
+	 */
+	@Bean
+	public TokenEnhancer dawnTokenEnhancer() {
+		return new DawnTokenEnhancer();
 	}
 
 

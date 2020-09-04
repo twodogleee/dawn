@@ -36,11 +36,22 @@ public class ResourceServerConfigurer {
 	 * Jwt配置
 	 */
 	private JwtProperties jwtProperties;
-
+	/**
+	 * 未授权处理
+	 */
 	private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+	/**
+	 * 未认证处理
+	 */
 	private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	/**
+	 * 自定义权限管理
+	 */
 	private final AuthorizationManager authorizationManager;
 
+	/**
+	 * 通过构造方法注入bean
+	 */
 	ResourceServerConfigurer(JwtProperties jwtProperties, RestfulAccessDeniedHandler restfulAccessDeniedHandler, RestAuthenticationEntryPoint restAuthenticationEntryPoint, AuthorizationManager authorizationManager) {
 		this.jwtProperties = jwtProperties;
 		this.restfulAccessDeniedHandler = restfulAccessDeniedHandler;
@@ -60,9 +71,11 @@ public class ResourceServerConfigurer {
 		http.oauth2ResourceServer().jwt()
 			//自定义Jwt解析
 			.jwtDecoder(new DawnReactiveJwtDecoder(new RsaJsonWebKey(JsonUtil.parseJson(jwtProperties.getPublicKeyStr())).getRsaPublicKey()))
+			//权限转换器
 			.jwtAuthenticationConverter(jwtAuthenticationConverter());
 		http.authorizeExchange()
 			.pathMatchers(GatewayConstant.PASS_URL_LIST).permitAll()//白名单配置
+			//自定义权限认证
 			.anyExchange().access(authorizationManager)
 //			.anyExchange().authenticated()
 			.and()
@@ -73,10 +86,17 @@ public class ResourceServerConfigurer {
 		return http.build();
 	}
 
+	/**
+	 * JWT授权转换器
+	 *
+	 * @return 转换器
+	 */
 	@Bean
 	public Converter<Jwt, ? extends Mono<? extends AbstractAuthenticationToken>> jwtAuthenticationConverter() {
 		JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+		//设置权限标识开头
 		jwtGrantedAuthoritiesConverter.setAuthorityPrefix(GatewayConstant.AUTHORITY_PREFIX);
+		//设置权限的ClaimName
 		jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName(GatewayConstant.AUTHORITY_CLAIM_NAME);
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);

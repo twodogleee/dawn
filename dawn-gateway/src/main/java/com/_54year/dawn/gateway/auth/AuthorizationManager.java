@@ -19,31 +19,45 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 鉴权管理器，用于判断是否有资源的访问权限
- * Created by macro on 2020/6/19.
+ * 鉴权管理器
+ * 判断用户是否有资源的访问权限
+ *
+ * @author Andersen
  */
 @Component
 @Slf4j
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 
+	/**
+	 * 角色与资源管理
+	 */
 	@Autowired
 	DawnRoleResourcesMapper resourcesMapper;
 
+	/**
+	 * 鉴权
+	 *
+	 * @param mono                 链式响应
+	 * @param authorizationContext 授权信息
+	 * @return 响应
+	 */
 	@Override
 	public Mono<AuthorizationDecision> check(Mono<Authentication> mono, AuthorizationContext authorizationContext) {
-		//从Redis中获取当前路径可访问角色列表
+		//获取Uri信息
 		URI uri = authorizationContext.getExchange().getRequest().getURI();
+		//用url查询到该资源需要的角色列表
 		List<Map<String, Object>> roleList = resourcesMapper.selectRoleListByUrl(uri.getPath());
 		List<String> authorities = roleList.stream()
 			.map(role -> GatewayConstant.AUTHORITY_PREFIX + role.get("role_name")).collect(Collectors.toList());
-		//认证通过且角色匹配的用户可访问当前路径
-		log.info(">>>>>当前url角色信息{}", authorities.toString());
+		log.info(">>>>>当前url所需角色信息{}", authorities.toString());
 		return mono
 			.filter(Authentication::isAuthenticated)
 			.flatMapIterable(Authentication::getAuthorities)
+			//获取权限标识
 			.map(GrantedAuthority::getAuthority)
 			.any(role -> {
 					log.info(">>>>>当前用户角色信息{}", role);
+					//如果当前url没有配置访问权限则所有用户都可以访问 || 包含用户所拥有角色
 					return CollectionUtils.isEmpty(authorities) || authorities.contains(role);
 				}
 			)

@@ -11,8 +11,8 @@ public class GatewayConstant {
 
 	public final static String TOKEN_NAME = "Authorization";
 	public final static String EXTRAS_HEADER_KEY = BasicConstant.EXTRAS_HEADER_KEY;
-	public static final String AUTHORITY_PREFIX = "ROLE_";
-	public static final String AUTHORITY_CLAIM_NAME = "authorities";
+	public static final String AUTHORITY_PREFIX = BasicConstant.AUTHORITY_PREFIX;
+	public static final String AUTHORITY_CLAIM_NAME = BasicConstant.AUTHORITY_CLAIM_NAME;
 	/**
 	 * 需要放行的urlList
 	 */
