@@ -6,7 +6,20 @@
 <p align="center">
 	<a href="http://www.54year.com"><img src="http://54year.com/usr/uploads/2020/08/650730182.png" width="400"></a>
 </p>
-
+<p align="center">
+    <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" rel="nofollow">
+        <img src="https://img.shields.io/badge/JDK-1.8-blue" style="max-width:100%;">
+    </a>
+    <a href="https://spring.io/projects/spring-boot" rel="nofollow">
+        <img src="https://img.shields.io/badge/SpringBoot-2.3.0.RELEASE-green" style="max-width:100%;">
+    </a>
+    <a href="https://spring.io/projects/spring-cloud" rel="nofollow">
+        <img src="https://img.shields.io/badge/SpringCloud-Hoxton.SR4-green" style="max-width:100%;">
+    </a>
+    <a href="https://nacos.io/zh-cn/" rel="nofollow">
+        <img src="https://img.shields.io/badge/nacos-1.2.1-blue" style="max-width:100%;">
+    </a>
+</p>
 
 
 
