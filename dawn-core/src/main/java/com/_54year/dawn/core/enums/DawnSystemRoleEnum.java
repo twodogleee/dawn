@@ -5,7 +5,7 @@ package com._54year.dawn.core.enums;
  *
  * @author Andersen
  */
-public enum DawnRoleEnum {
+public enum DawnSystemRoleEnum {
 	ADMIN(1000, "admin"),
 	USER(1001, "user");
 
@@ -18,7 +18,7 @@ public enum DawnRoleEnum {
 	 */
 	private String roleName;
 
-	DawnRoleEnum(Integer roleId, String roleName) {
+	DawnSystemRoleEnum(Integer roleId, String roleName) {
 		this.roleId = roleId;
 		this.roleName = roleName;
 	}

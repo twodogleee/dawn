@@ -8,7 +8,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Andersen
- * @since 2020-09-04
+ * @since 2020-09-07
  */
 public class DawnResources implements Serializable {
 

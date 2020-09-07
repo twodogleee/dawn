@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Andersen
- * @since 2020-09-04
+ * @since 2020-09-07
  */
 @Service
 public class DawnRoleResourcesServiceImpl extends ServiceImpl<DawnRoleResourcesMapper, DawnRoleResources> implements DawnRoleResourcesService {
