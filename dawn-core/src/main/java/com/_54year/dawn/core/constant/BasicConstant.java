@@ -22,4 +22,14 @@ public class BasicConstant {
 	 * 角色key集合
 	 */
 	public static final String ROLE_LIST_KEY = "role_list";
+	/**
+	 * token 请求头key
+	 */
+	public final static String AUTHORIZATION_HEADER = "Authorization";
+
+	/**
+	 * 后台服务 角色名
+	 */
+	public final static String DAWN_SERVER_ROLE_NAME = "dawn_system";
+
 }

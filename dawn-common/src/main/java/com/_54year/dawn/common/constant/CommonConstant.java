@@ -15,10 +15,16 @@ public class CommonConstant {
 	/**
 	 * 后台服务 角色名
 	 */
-	public final static String DAWN_SERVER_ROLE_NAME = "dawn_system";
+	public final static String DAWN_SERVER_ROLE_NAME = BasicConstant.DAWN_SERVER_ROLE_NAME;
 
 	/**
 	 * 角色验证参数Key
 	 */
 	public final static String DAWN_ROLE_KEY = "role_name";
+
+	/**
+	 * token 请求头key
+	 */
+	public final static String AUTHORIZATION_HEADER = BasicConstant.AUTHORIZATION_HEADER;
+
 }

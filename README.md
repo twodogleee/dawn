@@ -65,6 +65,9 @@
 ```
 1.新增MybatisPlus分页插件配置
 2.新增角色管理相关功能
+3.解决client_credentials授权模式获取token时保存的问题;
+4.解决使用client_credentials授权模式时被权限管理拦截的问题(注:client_credentials授权模式只能开放给服务端,因为该授权模式将无视任何权限)
+5.解决fegin调用token传递的问题
 ```
 
 ##### 2020-09-04 

@@ -15,7 +15,7 @@ public class FeignTest {
 
 	@GetMapping("/test1")
 	public Object test1() {
-		return authFeignClient.test1();
+		return authFeignClient.test5();
 	}
 
 	@GetMapping("/test2")

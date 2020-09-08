@@ -37,6 +37,7 @@ public class DawnRoleController {
 	 */
 	@PostMapping("/list")
 	@DawnResult
+	@HasRole(roleName = "admin")
 	public Object list(@RequestBody JSONObject param) {
 		Page<DawnRole> page = new DawnPage<>(param);
 		return dawnRoleService.page(page);
@@ -50,6 +51,7 @@ public class DawnRoleController {
 	 */
 	@PostMapping("/save")
 	@DawnResult
+	@HasRole(roleName = "admin")
 	public Object save(@RequestBody DawnRole dawnRole) {
 		return dawnRoleService.save(dawnRole);
 	}
@@ -62,6 +64,7 @@ public class DawnRoleController {
 	 */
 	@PostMapping("/update")
 	@DawnResult
+	@HasRole(roleName = "admin")
 	public Object update(@RequestBody DawnRole dawnRole) {
 		if (checkSystemRole(dawnRole.getRoleId())) {
 			return false;
@@ -77,6 +80,7 @@ public class DawnRoleController {
 	 */
 	@PostMapping("/delete")
 	@DawnResult
+	@HasRole(roleName = "admin")
 	public Object delete(@RequestBody JSONObject param) {
 		String roleId = param.getString("roleId");
 		if (checkSystemRole(roleId)) {

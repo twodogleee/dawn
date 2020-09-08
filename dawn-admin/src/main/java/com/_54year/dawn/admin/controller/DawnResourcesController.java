@@ -44,6 +44,20 @@ public class DawnResourcesController {
 		return dawnResourcesService.save(dawnResources);
 	}
 
+	@PostMapping("/update")
+	@DawnResult
+	@HasRole(roleName = "admin")
+	public Object update(@RequestBody DawnResources dawnResources) {
+		return dawnResourcesService.updateById(dawnResources);
+	}
+
+	@PostMapping("/delete")
+	@DawnResult
+	@HasRole(roleName = "admin")
+	public Object delete(@RequestBody DawnResources dawnResources) {
+		return dawnResourcesService.removeById(dawnResources.getId());
+	}
+
 
 }
 
