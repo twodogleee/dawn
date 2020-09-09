@@ -29,28 +29,28 @@ public class DawnRoleResourcesController {
 
 	@PostMapping("/list")
 	@DawnResult
-	@HasRole(roleName = "admin")
+	@HasRole("admin")
 	public Object list(@RequestBody JSONObject param) {
 		return dawnRoleResourcesService.page(new DawnPage<>(param));
 	}
 
 	@PostMapping("/save")
 	@DawnResult
-	@HasRole(roleName = "admin")
+	@HasRole("admin")
 	public Object save(@RequestBody DawnRoleResources dawnRoleResources) {
 		return dawnRoleResourcesService.save(dawnRoleResources);
 	}
 
 	@PostMapping("/update")
 	@DawnResult
-	@HasRole(roleName = "admin")
+	@HasRole("admin")
 	public Object update(@RequestBody DawnRoleResources dawnRoleResources) {
 		return dawnRoleResourcesService.updateById(dawnRoleResources);
 	}
 
 	@PostMapping("/delete")
 	@DawnResult
-	@HasRole(roleName = "admin")
+	@HasRole("admin")
 	public Object delete(@RequestBody DawnRoleResources dawnRoleResources) {
 		return dawnRoleResourcesService.removeById(dawnRoleResources.getId());
 	}
