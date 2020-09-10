@@ -1,12 +1,10 @@
 package com._54year.dawn.common.config;
 
-import com.alibaba.fastjson.JSONObject;
+import com._54year.dawn.common.constant.CommonConstant;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import com._54year.dawn.common.constant.CommonConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 服务端之间的feign配置 防止服务器之间的调用被HasRole拦截
- *
+ * <p>
  * 讲道理给服务调用的接口属于单独的开放接口所有不会出现这种开放接口被拦截的问题
- *
- *
+ * <p>
+ * feign在调用时也是通关网关所以会被拦截进行鉴权,所以目前用于解决feign调用时token传递的问题
  *
  * @author Andersen
  */
@@ -30,7 +28,7 @@ public class DawnFeignConfiguration {
 
 	/**
 	 * 实现feign的请求拦截器 添加服务器调用时添加extras请求头 用于HasRole进行权限认证
-	 * --2020-09-08 为了过身份认证 fegin调用时实现token传递
+	 * --2020-09-08 为了过身份认证 Feign调用时实现token传递
 	 *
 	 * @author Andersen
 	 */

@@ -1,15 +1,5 @@
 /*
- Navicat Premium Data Transfer
-
- Source Server Type    : MySQL
- Source Server Version : 50731
- Source Schema         : dawn
-
- Target Server Type    : MySQL
- Target Server Version : 50731
- File Encoding         : 65001
-
- Date: 04/09/2020 16:38:24
+ 测试数据 数据留着示例
 */
 
 SET NAMES utf8mb4;
@@ -38,16 +28,21 @@ INSERT INTO `dawn_resources` VALUES ('3', '测试', '/dawn-auth/test/getId');
 -- ----------------------------
 DROP TABLE IF EXISTS `dawn_role`;
 CREATE TABLE `dawn_role`  (
-  `role_id` int(10) NOT NULL COMMENT '角色ID',
+  `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色ID',
   `role_name` varchar(61) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名',
-  PRIMARY KEY (`role_id`) USING BTREE
+  `role_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色描述',
+  PRIMARY KEY (`role_id`) USING BTREE,
+  UNIQUE INDEX `roleName`(`role_name`) USING BTREE COMMENT '角色标识为唯一标识'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'dawn-角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dawn_role
 -- ----------------------------
-INSERT INTO `dawn_role` VALUES (1000, 'admin');
-INSERT INTO `dawn_role` VALUES (1001, 'user');
+INSERT INTO `dawn_role` VALUES ('00375afe3deaf5b127d1d9ffb389980f', 'test1', NULL);
+INSERT INTO `dawn_role` VALUES ('1000', 'admin', '管理员');
+INSERT INTO `dawn_role` VALUES ('1001', 'user', '用户');
+INSERT INTO `dawn_role` VALUES ('285cf665710cce825c3035c63abb7a7b', 'leader', NULL);
+INSERT INTO `dawn_role` VALUES ('c6c89f41e261f8bca5ef4458747a2880', 'test', NULL);
 
 -- ----------------------------
 -- Table structure for dawn_role_resources
@@ -55,7 +50,7 @@ INSERT INTO `dawn_role` VALUES (1001, 'user');
 DROP TABLE IF EXISTS `dawn_role_resources`;
 CREATE TABLE `dawn_role_resources`  (
   `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role_id` int(10) NULL DEFAULT NULL COMMENT '角色ID',
+  `role_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色ID',
   `resources_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资源ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'dawn-角色与资源对应表' ROW_FORMAT = Dynamic;
@@ -63,10 +58,10 @@ CREATE TABLE `dawn_role_resources`  (
 -- ----------------------------
 -- Records of dawn_role_resources
 -- ----------------------------
-INSERT INTO `dawn_role_resources` VALUES ('1', 1000, '1');
-INSERT INTO `dawn_role_resources` VALUES ('2', 1001, '2');
-INSERT INTO `dawn_role_resources` VALUES ('3', 1000, '2');
-INSERT INTO `dawn_role_resources` VALUES ('4', 1000, '3');
+INSERT INTO `dawn_role_resources` VALUES ('1', '1000', '1');
+INSERT INTO `dawn_role_resources` VALUES ('2', '1001', '2');
+INSERT INTO `dawn_role_resources` VALUES ('3', '1000', '2');
+INSERT INTO `dawn_role_resources` VALUES ('4', '1000', '3');
 
 -- ----------------------------
 -- Table structure for dawn_user
@@ -132,6 +127,7 @@ CREATE TABLE `oauth_client_details`  (
 -- Records of oauth_client_details
 -- ----------------------------
 INSERT INTO `oauth_client_details` VALUES ('dawn-gateway', '', '$2a$10$mYTfIc6YDJ2l5vBTsmnvT.eNqCU.nSuTwaRFX1ndjNVVWttBCGcbS', 'all', 'refresh_token,implicit,client_credentials,password,authorization_code', '', '', NULL, NULL, '{}', '');
+INSERT INTO `oauth_client_details` VALUES ('test', '', '$2a$10$WL1kNzt5ZkSYbYDaCsR2EO68FlaKRQ2RD3IT2RR34aSQ7FKxcJO3.', 'all', 'client_credentials', '', '', NULL, NULL, '{}', 'true');
 INSERT INTO `oauth_client_details` VALUES ('web', '', '$2a$10$7tgak24egxHHl5sQXn0DXe5lfxY9RJAByi0TxXIR3N46nEOh3U0kK', 'all', 'implicit,password,refresh_token', '', '', NULL, NULL, '{}', 'true');
 
 SET FOREIGN_KEY_CHECKS = 1;

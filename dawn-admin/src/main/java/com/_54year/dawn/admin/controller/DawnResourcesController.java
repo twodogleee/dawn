@@ -3,10 +3,10 @@ package com._54year.dawn.admin.controller;
 
 import com._54year.dawn.admin.entity.DawnResources;
 import com._54year.dawn.admin.service.DawnResourcesService;
-import com._54year.dawn.admin.service.DawnRoleResourcesService;
 import com._54year.dawn.common.annotation.DawnResult;
+import com._54year.dawn.common.annotation.RequestUser;
 import com._54year.dawn.common.annotation.HasRole;
-import com._54year.dawn.core.enums.DawnSystemRoleEnum;
+import com._54year.dawn.common.entity.CurrentUser;
 import com._54year.dawn.mysql.config.DawnPage;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,8 @@ public class DawnResourcesController {
 	@PostMapping("/list")
 	@DawnResult
 	@HasRole("admin")
-	public Object list(@RequestBody JSONObject param) {
+	public Object list(@RequestBody JSONObject param,@RequestUser CurrentUser currentUser) {
+		System.out.println(currentUser);
 		return dawnResourcesService.page(new DawnPage<>(param));
 	}
 

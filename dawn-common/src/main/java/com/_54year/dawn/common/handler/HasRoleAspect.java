@@ -1,4 +1,4 @@
-package com._54year.dawn.common.aspect;
+package com._54year.dawn.common.handler;
 
 
 import com._54year.dawn.core.constant.BasicConstant;
@@ -63,13 +63,13 @@ public class HasRoleAspect {
 		}
 		//获取用户当前角色列表
 		List<String> roleList = userJson.getJSONArray(BasicConstant.ROLE_LIST_KEY).toJavaList(String.class);
-		roleList.forEach((role) -> {
+		for(String role:roleList){
 			//如果注解上角色标识=当前登录用户角色 || 当前用户角色为system后端服务 则放行
 			if (hasRole.value().equals(role) || CommonConstant.DAWN_SERVER_ROLE_NAME.equals(role)) {
 				return;
 			}
-			throw new DawnNoPermissionException("你没有访问权限！");
-		});
+		}
+		throw new DawnNoPermissionException("你没有访问权限！");
 	}
 
 	/**

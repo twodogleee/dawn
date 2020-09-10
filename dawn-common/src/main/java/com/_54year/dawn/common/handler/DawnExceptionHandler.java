@@ -1,4 +1,4 @@
-package com._54year.dawn.common.aspect;
+package com._54year.dawn.common.handler;
 
 import com._54year.dawn.common.exception.DawnNoPermissionException;
 import com._54year.dawn.core.enums.DawnBasicResultCode;
