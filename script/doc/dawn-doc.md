@@ -9,14 +9,17 @@ git clone https://github.com/suucx/dawn.git
 > idee使用RunDashboard批量启动微服务
 > 在`.idea/workspace.xml`中新增如下内容;如果存在RunDashboard标签则在标签中添加option的内容即可,添加后随便启动一个服务则会出现services的table栏
 >> ```
->   <component name="RunDashboard">
-    <option name="configurationTypes">
-      <set>
-        <option value="SpringBootApplicationConfigurationType" />
-      </set>
-    </option>
-  </component>
->> ``` 
+>> <component name="RunDashboard">
+>>    <option name="configurationTypes">
+>>      <set>
+>>        <option value="SpringBootApplicationConfigurationType" />
+>>      </set>
+>>    </option>
+>>  </component> 
+>>  ```
+
+
+
 
 ### 2.相关配置及数据库
 1. 将项目中`script下dawn-auth.yaml,dawn_basic.yaml,gateway_route.js`配置与nacos中,group为dawn
@@ -28,7 +31,7 @@ git clone https://github.com/suucx/dawn.git
 
 ### 3.其他说明
 
-** 启动项目:auth,admin,greatway **
+**启动项目:auth,admin,greatway**
 
 1. 获取token
 经网关调用接口`http://localhost:8080/dawn-auth/oauth/token`
