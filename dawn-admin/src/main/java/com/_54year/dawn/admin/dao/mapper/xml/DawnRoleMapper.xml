@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com._54year.dawn.admin.entity.DawnRole">
         <id column="role_id" property="roleId" />
         <result column="role_name" property="roleName" />
+        <result column="role_description" property="roleDescription" />
     </resultMap>
 
 </mapper>

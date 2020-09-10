@@ -8,7 +8,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author Andersen
- * @since 2020-09-04
+ * @since 2020-09-07
  */
 public class DawnRoleResources implements Serializable {
 
@@ -19,7 +19,7 @@ public class DawnRoleResources implements Serializable {
     /**
      * 角色ID
      */
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 资源ID
@@ -35,11 +35,11 @@ public class DawnRoleResources implements Serializable {
         this.id = id;
     }
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 

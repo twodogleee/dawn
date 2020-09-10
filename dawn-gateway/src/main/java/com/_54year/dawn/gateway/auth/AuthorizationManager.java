@@ -57,8 +57,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
 			.map(GrantedAuthority::getAuthority)
 			.any(role -> {
 					log.info(">>>>>当前用户角色信息{}", role);
-					//如果当前url没有配置访问权限则所有用户都可以访问 || 包含用户所拥有角色
-					return CollectionUtils.isEmpty(authorities) || authorities.contains(role);
+					//如果当前url没有配置访问权限则所有用户都可以访问 || 包含用户所拥有角色 || 来自服务器调用
+					return CollectionUtils.isEmpty(authorities) || authorities.contains(role) || GatewayConstant.DAWN_SERVER_ROLE_NAME.equals(role);
 				}
 			)
 			.map(AuthorizationDecision::new)

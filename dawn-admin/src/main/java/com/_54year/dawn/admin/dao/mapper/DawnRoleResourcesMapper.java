@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Andersen
- * @since 2020-09-04
+ * @since 2020-09-07
  */
 public interface DawnRoleResourcesMapper extends BaseMapper<DawnRoleResources> {
 

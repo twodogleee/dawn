@@ -1,6 +1,8 @@
 package com._54year.dawn.auth.controller;
 
 import com._54year.dawn.auth.dao.mapper.UserMapper;
+import com._54year.dawn.common.annotation.RequestUser;
+import com._54year.dawn.common.entity.CurrentUser;
 import com.alibaba.fastjson.JSONObject;
 import com._54year.dawn.common.annotation.DawnResult;
 import com._54year.dawn.common.annotation.HasRole;
@@ -53,7 +55,7 @@ public class TestController {
 
 
 	@PostMapping("/test2")
-	@HasRole(roleName = "admin")
+	@HasRole("admin")
 	public Object test2(@RequestBody JSONObject param) throws DawnJwtServiceException {
 		JwtClaims claims = jwtService.parseToken(JwkUtil.getTokenStr(param.getString("Authorization")));
 		System.out.println(claims.getRawJson());
@@ -113,12 +115,13 @@ public class TestController {
 
 	@DawnResult
 	@GetMapping("/getUser")
-	public Object getUser() {
+	public Object getUser(@RequestUser CurrentUser currentUser) {
 //		List<DawnUser> users = userMapper.selectList(null);
-		return userMapper.selectUserList();
+//		return userMapper.selectUserList();
+		return currentUser;
 	}
 
-	@HasRole(roleName = "test")
+	@HasRole("test")
 	@DawnResult
 	@GetMapping("/getId")
 	public Object getId() {

@@ -12,5 +12,9 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface HasRole {
-	String roleName();
+	/**
+	 * 获取角色标识
+	 * @return 标识
+	 */
+	String value();
 }

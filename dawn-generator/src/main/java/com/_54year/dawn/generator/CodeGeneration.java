@@ -8,14 +8,20 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class CodeGeneration {
 
 
-	//main函数
+	/**
+	 * 代码生成器 入口
+	 *
+	 * 代码生成不推荐直接生成在项目包中,可以随便生成在一个位置然后copy自己需要的类就行了;
+	 * 防止生成代码的时候把需要保留的代码覆盖掉了
+	 * @param args 参数
+	 */
 	public static void main(String[] args) {
 
 		AutoGenerator autoGenerator = new AutoGenerator()
 			.setGlobalConfig(
 				//全局配置
 				new GlobalConfig()
-					.setOutputDir("E:\\workSpace\\test\\dawn\\dawn-admin\\src\\main\\java")//生成文件输出根目录
+					.setOutputDir("E:\\workSpace\\test\\dawn\\code-generator")//生成文件输出根目录
 					.setOpen(false)//生成完成后不弹出文件框
 					.setFileOverride(true)//文件覆盖
 					.setActiveRecord(false)// 不需要ActiveRecord特性的请改为false

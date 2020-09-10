@@ -1,13 +1,11 @@
 package com._54year.dawn.auth.service.impl;
 
 import com._54year.dawn.auth.dao.mapper.DawnUserRoleMapper;
-import com._54year.dawn.auth.dao.mapper.RoleMapper;
 import com._54year.dawn.auth.dao.mapper.UserMapper;
-import com._54year.dawn.auth.entity.DawnRole;
 import com._54year.dawn.auth.entity.DawnUser;
 import com._54year.dawn.auth.entity.DawnUserRole;
 import com._54year.dawn.auth.service.UserService;
-import com._54year.dawn.core.enums.DawnRoleEnum;
+import com._54year.dawn.core.enums.DawnSystemRoleEnum;
 import com._54year.dawn.core.excetion.DawnBusinessException;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		return
 			userMapper.insert(dawnUser) != 0
 				&&
-				dawnUserRoleMapper.insert(new DawnUserRole(userId.toString(),DawnRoleEnum.USER.roleId().toString())) != 0;
+				dawnUserRoleMapper.insert(new DawnUserRole(userId.toString(), DawnSystemRoleEnum.USER.roleId().toString())) != 0;
 	}
 
 

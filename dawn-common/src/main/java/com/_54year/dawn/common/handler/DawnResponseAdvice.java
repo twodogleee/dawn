@@ -1,7 +1,6 @@
-package com._54year.dawn.common.aspect;
+package com._54year.dawn.common.handler;
 
 import com._54year.dawn.core.result.ResultReaderFactory;
-import com._54year.dawn.core.util.CheckEmptyUtils;
 import com._54year.dawn.common.annotation.DawnResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -10,9 +9,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 封装返回结果（已弃用，留作了解）

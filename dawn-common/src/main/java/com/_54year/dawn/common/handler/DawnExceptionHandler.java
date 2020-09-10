@@ -1,7 +1,8 @@
-package com._54year.dawn.common.aspect;
+package com._54year.dawn.common.handler;
 
-import com._54year.dawn.core.excetion.DawnBusinessException;
+import com._54year.dawn.common.exception.DawnNoPermissionException;
 import com._54year.dawn.core.enums.DawnBasicResultCode;
+import com._54year.dawn.core.excetion.DawnBusinessException;
 import com._54year.dawn.core.result.impl.DawnResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Order(1)
 public class DawnExceptionHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DawnExceptionHandler.class);
+
+
+	@ResponseBody
+	@ExceptionHandler(DawnNoPermissionException.class)
+	public DawnResult<Object> handleDawnNoPermissionException(DawnNoPermissionException dawnNoPermissionException) {
+		return DawnResult.failed(DawnBasicResultCode.FORBIDDEN, dawnNoPermissionException.getMessage());
+	}
 
 	@ResponseBody
 	@ExceptionHandler(DawnBusinessException.class)
