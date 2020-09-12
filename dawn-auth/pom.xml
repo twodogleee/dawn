@@ -69,6 +69,12 @@
             <artifactId>dawn-mysql</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!--页面要用到的框架-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
 <!--    <build>-->

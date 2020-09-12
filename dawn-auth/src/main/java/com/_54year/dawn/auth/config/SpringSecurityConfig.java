@@ -2,7 +2,6 @@ package com._54year.dawn.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -24,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -50,15 +50,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//			.authorizeRequests()
-//			.antMatchers("/oauth/**").permitAll()
-//			.anyRequest().authenticated()
-//			.and()
-//			.csrf().disable();
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable();
+		http.requestMatchers()
+			.antMatchers("/oauth/**")
+			.antMatchers("/login/**")
+			.antMatchers("/logout/**")
+			.and()
+			.authorizeRequests()
+			.antMatchers("/oauth/**").authenticated()
+			.and()
+			.formLogin().permitAll();
+	}
 
 	/**
 	 * 创建AuthenticationManager 构建身份验证
