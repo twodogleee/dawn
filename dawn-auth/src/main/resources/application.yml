@@ -1,4 +1,8 @@
 spring:
+  thymeleaf:
+    cache: off
+    prefix: classpath:/static/
+    suffix: .html
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -53,6 +57,5 @@ logging:
     org:
       springframework:
         web: debug
-
 
 

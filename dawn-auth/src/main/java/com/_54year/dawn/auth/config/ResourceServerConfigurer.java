@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 @Slf4j
-@Order(6)
+@Order(3)
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -30,7 +30,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 			)
 			.and()
 			.authorizeRequests()
-			.antMatchers("/oauth/**", "test/**", "/user/**","/login").permitAll()
+			.antMatchers("/oauth/**","/user/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.httpBasic();

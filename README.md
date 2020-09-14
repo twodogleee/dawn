@@ -64,26 +64,20 @@
 
 #### 更新说明
 
-##### 2020-09-10 
+##### 2020-09
 ```
+
 1.新增@RequestUser注解用于绑定请求的用户信息
 2.新增CurrentUser参数解析器绑定用户信息
-```
+3.新增MybatisPlus分页插件配置
+4.新增角色管理相关功能
+5.解决client_credentials授权模式获取token时保存的问题;
+6.解决使用client_credentials授权模式时被权限管理拦截的问题(注:client_credentials授权模式只能开放给服务端,因为该授权模式将无视任何权限)
+7.解决fegin调用token传递的问题
+8.完成了网关通过查询数据库中的url角色信息来进行统一的鉴权
+9.提供了HasRole注解对接口进行单独鉴权
+10.增加了token增强
 
-##### 2020-09-07 
-```
-1.新增MybatisPlus分页插件配置
-2.新增角色管理相关功能
-3.解决client_credentials授权模式获取token时保存的问题;
-4.解决使用client_credentials授权模式时被权限管理拦截的问题(注:client_credentials授权模式只能开放给服务端,因为该授权模式将无视任何权限)
-5.解决fegin调用token传递的问题
-```
-
-##### 2020-09-04 
-```
-1.完成了网关通过查询数据库中的url角色信息来进行统一的鉴权
-2.提供了HasRole注解对接口进行单独鉴权
-3.增加了token增强
 
 后续计划url与角色关联信息放到redis
 然后需要增加同一client_id重复登录时使上一个token失效来解决Jwttoken下发后无法主动失效问题

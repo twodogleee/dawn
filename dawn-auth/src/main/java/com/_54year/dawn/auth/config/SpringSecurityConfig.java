@@ -50,18 +50,39 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 
+	/**
+	 * Http安全配置
+	 *
+	 * @param http http安全配置
+	 * @throws Exception 异常
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
 		http.csrf().disable();
+		//安全配置请求匹配 只有在requestMatchers()中匹配的路径才会受该处配置影响 其他路径移交到下一配置 则资源安全配置管理
 		http.requestMatchers()
-			.antMatchers("/oauth/**")
-			.antMatchers("/login/**")
-			.antMatchers("/logout/**")
+			.antMatchers("/oauth/**", "/authentication/**", "/login")
 			.and()
+			//表单登录配置
+			.formLogin()
+			//登录跳转路径
+			.loginPage("/authentication/require")
+			//表单登录处理接口
+			.loginProcessingUrl("/authentication/form")
+			.and()
+			//访问验证
 			.authorizeRequests()
-			.antMatchers("/oauth/**").authenticated()
-			.and()
-			.formLogin().permitAll();
+//			.antMatchers("/oauth/**").authenticated().anyRequest().permitAll();
+			//以下路径开放访问
+			.antMatchers(
+				"/login",
+				"/oauth/confirm_access",
+				"/authentication/require",
+				"/authentication/form"
+			).permitAll()
+			//其他路径全部需要认证 如果未通过认证则会拦截到登录页
+			.anyRequest().authenticated();
 	}
 
 	/**
