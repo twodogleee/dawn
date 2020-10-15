@@ -38,6 +38,7 @@ git clone https://github.com/suucx/dawn.git
 username:admin 密码:123456
 ![](https://github.com/suucx/dawn/blob/master/script/doc/imgs/2.png)
 2. Oauth2.0 授权码认证方式
+```
 Grant Type:code //授权码模式
 Callback URL:https://www.54year.com //授权码回调地址
 Auth URL:http://localhost:8080/dawn-auth/oauth/authorize //获取授权码地址
@@ -57,3 +58,4 @@ redirect_uri: "https://www.54year.com" //重定向url
 client_id: "test" //客户端id
 client_secret: "test" //客户端Secret
 请求后即可使用授权码换取token
+```
