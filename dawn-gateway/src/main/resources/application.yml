@@ -31,17 +31,17 @@ spring:
       # 要启用PSCache，必须配置大于0
       # max-pool-prepared-statement-per-connection-size: 20
 
-#xml扫描路径
-mybatis-plus:
-  mapper-locations: classpath*:/com/_54year/dawn/**/*Mapper.xml,classpath*:/mapper/*Mapper.xml
-
-#日志相关配置
-logging:
-  level:
-    root: info
-    org:
-      springframework:
-        web: debug
+##xml扫描路径
+#mybatis-plus:
+#  mapper-locations: classpath*:/com/_54year/dawn/**/*Mapper.xml,classpath*:/mapper/*Mapper.xml
+#
+##日志相关配置
+#logging:
+#  level:
+#    root: info
+#    org:
+#      springframework:
+#        web: debug
 
 
 

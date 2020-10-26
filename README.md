@@ -66,6 +66,7 @@
 ##### 2020-10
 ```
 1.auth新增contentPath,没有contentPath导致通关网关使用授权码模式获取token失败
+2.新增网关Hystrix熔断配置,修改配置中心配置见script
 ```
 ##### 2020-09
 ```

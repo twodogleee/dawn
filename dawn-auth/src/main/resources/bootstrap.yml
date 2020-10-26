@@ -28,7 +28,7 @@ spring:
           refresh: true
         extension-configs[1]:
           #读取auth配置
-          data-id: dawn-auth.yaml
+          data-id: dawn_dev.yaml
           group: dawn
           # 配置修改后是否自动更新
           refresh: true

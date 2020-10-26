@@ -1,0 +1,19 @@
+spring:
+    datasource:
+        url: jdbc:mysql://192.168.1.91:3306/dawn?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true&autoReconnect=true
+        username: andersen
+        password: andersen
+#xml扫描路径
+mybatis-plus:
+    mapper-locations: classpath*:/com/_54year/dawn/**/*Mapper.xml,classpath*:/mapper/*Mapper.xml
+    #mybatis-plus sql执行语句输出
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#日志相关配置
+logging:
+    level:
+        root: info
+        org:
+            springframework:
+                security: error
+                web: debug
