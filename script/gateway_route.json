@@ -6,19 +6,34 @@
       {
         "name": "Path",
         "args": {
-          "pattern": "/auth/**"
+          "pattern": "/dawn-auth/**"
         }
       }
     ],
     "filters": [
       {
-        "name": "StripPrefix",
-        "args": {
-          "_genkey_0": "1"
+        "name":"Hystrix",
+        "args":{
+          "name":"default",
+          "fallbackUri":"forward:/defaultFallback"
         }
       }
     ],
     "uri": "lb://dawn-auth"
+  },
+  {
+    "id": "gateway-dawn-admin",
+    "order": 0,
+    "predicates": [
+      {
+        "name": "Path",
+        "args": {
+          "pattern": "/dawn-admin/**"
+        }
+      }
+    ],
+    "filters": [{"name":"StripPrefix","args":{"_genkey_0":"1"}}],
+    "uri": "lb://dawn-admin"
   },
   {
     "id": "example-route",

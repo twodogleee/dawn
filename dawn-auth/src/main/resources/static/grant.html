@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>确认授权</title>
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+</head>
+<body>
+<div id="login">
+    <h2><span class="fontawesome-lock">Warning</span></h2>
+    <form action="/dawn-auth/oauth/authorize" method="POST">
+        <fieldset>
+            <p style="font-size: 20px"><span th:text="${session.authorizationRequest.clientId}" style="color: red"></span>想要获得你的权限</p>
+            <input th:name="${scope}" th:each="scope : ${scopeList}" value="true" type="hidden"/>
+            <input name='user_oauth_approval' value='true' type='hidden'/>
+            <p><input type="submit" name='authorize' value="授权"></p>
+        </fieldset>
+    </form>
+</div> <!-- end login -->
+
+</body>
+</html>
+
+
+

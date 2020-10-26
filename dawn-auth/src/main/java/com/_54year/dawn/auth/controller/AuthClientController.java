@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.KeyPair;
 
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/client")
 public class AuthClientController {
 	/**
 	 * 客户端信息处理

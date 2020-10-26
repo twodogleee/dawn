@@ -37,3 +37,25 @@ git clone https://github.com/suucx/dawn.git
 经网关调用接口`http://localhost:8080/dawn-auth/oauth/token`
 username:admin 密码:123456
 ![](https://github.com/suucx/dawn/blob/master/script/doc/imgs/2.png)
+2. Oauth2.0 授权码认证方式
+```
+Grant Type:code //授权码模式
+Callback URL:https://www.54year.com //授权码回调地址
+Auth URL:http://localhost:8080/dawn-auth/oauth/authorize //获取授权码地址
+Access Token URL:http://localhost:8080/dawn-auth/oauth/token //授权码换取token地址
+Client ID:test //客户端id 需要支持authorization_code 授权模式
+Client Secret:test //客户端secret
+Scope:all //访问域
+State:getTokenTest //其他参数回调时会原本返回
+2.1 请求授权地址获取授权码
+PATH:http://192.168.1.119:8080/dawn-auth/oauth/authorize?response_type=code&state=getTokenTest&client_id=test&scope=all&redirect_uri=https%3A%2F%2Fwww.54year.com
+2.2 获取到授权码后使用授权码换取token
+PATH:http://localhost:8080/dawn-auth/oauth/token
+questParam:
+grant_type: "authorization_code" //获取token模式
+code: "nNP34W" //授权码 callBack地址上的code
+redirect_uri: "https://www.54year.com" //重定向url
+client_id: "test" //客户端id
+client_secret: "test" //客户端Secret
+请求后即可使用授权码换取token
+```

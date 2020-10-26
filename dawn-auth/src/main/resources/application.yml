@@ -1,4 +1,8 @@
 spring:
+  thymeleaf:
+    cache: off
+    prefix: classpath:/static/
+    suffix: .html
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -42,17 +46,18 @@ spring:
         exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
         session-stat-enable: true
         session-stat-max-count: 10
-#xml扫描路径
-mybatis-plus:
-  mapper-locations: classpath*:/com/_54year/dawn/**/*Mapper.xml,classpath*:/mapper/*Mapper.xml
-
-#日志相关配置
-logging:
-  level:
-    root: info
-    org:
-      springframework:
-        web: debug
-
-
+##xml扫描路径
+#mybatis-plus:
+#  mapper-locations: classpath*:/com/_54year/dawn/**/*Mapper.xml,classpath*:/mapper/*Mapper.xml
+#  #mybatis-plus sql执行语句输出
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+##日志相关配置
+#logging:
+#  level:
+#    root: info
+#    org:
+#      springframework:
+#        security: error
+#        web: debug
 

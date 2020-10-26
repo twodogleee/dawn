@@ -22,8 +22,7 @@ public class GatewayConstant {
 	 * 需要放行的urlList
 	 */
 	public final static String[] PASS_URL_LIST = {
-		"/dawn-auth/oauth/**",
-		"/dawn-auth/user/**"
+		"/dawn-auth/**"
 	};
 
 }
