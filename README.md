@@ -45,6 +45,7 @@
 ├── dawn-jwt-spring-boot-stater:jwt工具
 ├── dawn-mysql:引入druid/MybatisPlus
 ├── dawn-generator:mybatisPlus代码生成模板
+├── dawn-redis-spring-boot-starter:redis配置及操作
 └──
 ```
 #### 功能概要
@@ -63,6 +64,12 @@
 
 
 #### 更新说明
+##### 2021-01
+```
+1.新增redis配置及操作相关starter
+
+```
+
 ##### 2020-10
 ```
 1.auth新增contentPath,没有contentPath导致通关网关使用授权码模式获取token失败

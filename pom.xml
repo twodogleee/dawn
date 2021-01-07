@@ -44,6 +44,7 @@
         <module>dawn-core</module>
         <module>dawn-jwt-spring-boot-starter</module>
         <module>dawn-generator</module>
+        <module>dawn-redis-spring-boot-starter</module>
     </modules>
 
     <!--    公共依赖-->
