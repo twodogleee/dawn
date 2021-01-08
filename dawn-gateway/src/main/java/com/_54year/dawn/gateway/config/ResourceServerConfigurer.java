@@ -5,6 +5,7 @@ import com._54year.dawn.gateway.constant.GatewayConstant;
 import com._54year.dawn.gateway.handler.RestAuthenticationEntryPoint;
 import com._54year.dawn.gateway.handler.RestfulAccessDeniedHandler;
 import com._54year.dawn.jwt.config.JwtProperties;
+import com._54year.dawn.redis.util.RedisUtil;
 import org.jose4j.json.JsonUtil;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.lang.JoseException;
@@ -49,14 +50,17 @@ public class ResourceServerConfigurer {
 	 */
 	private final AuthorizationManager authorizationManager;
 
+	private RedisUtil redisUtil;
+
 	/**
 	 * 通过构造方法注入bean
 	 */
-	ResourceServerConfigurer(JwtProperties jwtProperties, RestfulAccessDeniedHandler restfulAccessDeniedHandler, RestAuthenticationEntryPoint restAuthenticationEntryPoint, AuthorizationManager authorizationManager) {
+	ResourceServerConfigurer(JwtProperties jwtProperties, RestfulAccessDeniedHandler restfulAccessDeniedHandler, RestAuthenticationEntryPoint restAuthenticationEntryPoint, AuthorizationManager authorizationManager, RedisUtil redisUtil) {
 		this.jwtProperties = jwtProperties;
 		this.restfulAccessDeniedHandler = restfulAccessDeniedHandler;
 		this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
 		this.authorizationManager = authorizationManager;
+		this.redisUtil = redisUtil;
 	}
 
 	/**
@@ -70,7 +74,7 @@ public class ResourceServerConfigurer {
 	public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws JoseException {
 		http.oauth2ResourceServer().jwt()
 			//自定义Jwt解析
-			.jwtDecoder(new DawnReactiveJwtDecoder(new RsaJsonWebKey(JsonUtil.parseJson(jwtProperties.getPublicKeyStr())).getRsaPublicKey()))
+			.jwtDecoder(new DawnReactiveJwtDecoder(new RsaJsonWebKey(JsonUtil.parseJson(jwtProperties.getPublicKeyStr())).getRsaPublicKey(), redisUtil))
 			//权限转换器
 			.jwtAuthenticationConverter(jwtAuthenticationConverter());
 		http.authorizeExchange()

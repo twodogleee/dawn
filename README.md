@@ -67,6 +67,7 @@
 ##### 2021-01
 ```
 1.新增redis配置及操作相关starter
+2.token授权时向redis写入token与用户绑定信息,做同client唯一登录
 
 ```
 

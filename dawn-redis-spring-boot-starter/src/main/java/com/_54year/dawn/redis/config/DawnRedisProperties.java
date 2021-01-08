@@ -7,7 +7,7 @@ import java.util.List;
 
 @ConfigurationProperties(prefix = "dawn.redis")
 @Data
-public class RedisProperties {
+public class DawnRedisProperties {
 	/**
 	 * 是否使用集群连接 true集群 false单节点
 	 */
