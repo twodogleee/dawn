@@ -1,5 +1,8 @@
 package com._54year.dawn.excel.export;
 
+import com._54year.dawn.excel.entity.ExcelDemo;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
 /**
@@ -12,10 +15,9 @@ public abstract class AbstractDawnExportExcel {
 	 * 数据处理
 	 *
 	 * @param param
-	 * @param type
 	 * @param <T>
 	 * @return
 	 */
-	abstract public <T> List<T> handleData(Object param, Class<T> type);
+	abstract public <T> List<T> handleData(DawnExportExcelBasicParam param);
 
 }

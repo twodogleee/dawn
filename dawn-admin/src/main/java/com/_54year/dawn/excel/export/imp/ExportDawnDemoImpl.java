@@ -3,7 +3,9 @@ package com._54year.dawn.excel.export.imp;
 import com._54year.dawn.excel.entity.ExcelDemo;
 import com._54year.dawn.excel.export.AbstractDawnExportExcel;
 import com._54year.dawn.excel.export.DawnExcelConstants;
+import com._54year.dawn.excel.export.DawnExportExcelBasicParam;
 import com._54year.dawn.excel.service.ExcelDemoService;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -21,10 +23,10 @@ public class ExportDawnDemoImpl extends AbstractDawnExportExcel {
 	private ExcelDemoService excelDemoService;
 
 	@Override
-	public <T> List<T> handleData(Object param, Class<T> type) {
-		JSONObject json = (JSONObject) param;
+	public <T> List<T> handleData(DawnExportExcelBasicParam param) {
 		LambdaQueryWrapper<ExcelDemo> qw = Wrappers.lambdaQuery();
-		qw.last("limit " + json.getInteger("page") + "," + json.getInteger("pageSize"));
+		int pageIndex = (param.getPageNum() - 1) * param.getPageSize() + 1;
+		qw.last("limit " + pageIndex + "," + param.getPageSize());
 		List<ExcelDemo> dataList = excelDemoService.list(qw);
 		return (List<T>) dataList;
 	}
