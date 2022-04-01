@@ -77,16 +77,17 @@ public class DawnExportExcel {
 			CountDownLatch countDownLatch = new CountDownLatch(10);
 			List<FutureTask<Boolean>> futureTaskList = new ArrayList<>();
 			long count = countDownLatch.getCount();
-			ExcelDemoReq param = new ExcelDemoReq();
-			param.setPageSize(1);
+
 			DawnExportExcelCache<ExcelDemo> cache = new DawnExportExcelCache<>(10);
-			for (int i = 1; i <= 10; i++) {
+			for (int i = 1; i <= 100; i++) {
+				ExcelDemoReq param = new ExcelDemoReq();
+				param.setPageSize(1000);
 				param.setPageNum(i);
 				FutureTask<Boolean> futureTask = new FutureTask<>(new ExportExcelCallable<>(param, countDownLatch, DawnExcelConstants.EXCEL_DEMO, cache));
 				threadPoolTaskExecutor.execute(futureTask);
 				futureTaskList.add(futureTask);
 			}
-			threadPoolTaskExecutor.execute(() -> {// 分页去数据库查询数据 这里可以去数据库查询每一页的数据
+			new Thread(() -> {// 分页去数据库查询数据 这里可以去数据库查询每一页的数据
 				String fileName = "D:\\workspace\\demo\\dawn\\dawn-admin\\src\\main\\resources\\" + System.currentTimeMillis() + ".xlsx";
 				ExcelWriter excelWriter = null;
 				try {
@@ -94,9 +95,10 @@ public class DawnExportExcel {
 					excelWriter = EasyExcel.write(fileName, ExcelDemo.class).build();
 					// 这里注意 如果同一个sheet只要创建一次
 					WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
-					for (int i = 1; i <= 10; i++) {
+					for (int i = 1; i <= 100; i++) {
 						List<ExcelDemo> data = cache.getPageData();
-						log.info("===============" + data.toString());
+//						log.info("===============" + data.toString());
+						log.info("===============当前写出" + i + "页================");
 						excelWriter.write(data, writeSheet);
 					}
 				} catch (Exception e) {
@@ -108,9 +110,10 @@ public class DawnExportExcel {
 					}
 				}
 				log.info("=====================写出完毕");
-			});
+				log.info("===================导出耗时" + (System.currentTimeMillis() - start) + "毫秒");
+			}).start();
 			//等待所有线程执行完毕
-//			countDownLatch.await(30, TimeUnit.SECONDS);
+			countDownLatch.await(30, TimeUnit.SECONDS);
 			//获取执行结果
 //			for (FutureTask<Boolean> customerPageRespFutureTask : futureTaskList) {
 //				System.out.println(customerPageRespFutureTask.get());
@@ -124,7 +127,7 @@ public class DawnExportExcel {
 //				excelWriter.finish();
 //			}
 //		}
-		log.info("===================导出耗时" + (System.currentTimeMillis() - start) + "毫秒");
+
 
 //		// 方法2 如果写到不同的sheet 同一个对象
 //		fileName = TestFileUtil.getPath() + "repeatedWrite" + System.currentTimeMillis() + ".xlsx";

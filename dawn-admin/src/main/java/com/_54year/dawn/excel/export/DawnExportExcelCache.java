@@ -19,11 +19,11 @@ public class DawnExportExcelCache<T> {
 		this.dataCache = new LinkedBlockingQueue<>(cacheSize);
 	}
 
-	public boolean savePageData(int page, List<T> pageData) {
+	public boolean savePageData(int page, List<T> pageData) throws InterruptedException {
 		while (nowPage.get() != page) {
-
+			System.out.println(Thread.currentThread().getName() + "开始自旋,当前线程页码" + page + ",当前缓存页码" + nowPage.get());
 		}
-		dataCache.offer(pageData);
+		dataCache.put(pageData);
 		nowPage.set(page + 1);
 		return true;
 	}
