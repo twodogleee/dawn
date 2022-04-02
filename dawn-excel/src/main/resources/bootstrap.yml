@@ -1,0 +1,37 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: dawn-excel
+  cloud:
+    nacos:
+      #配置中心配置
+      config:
+        #配置中心地址
+        server-addr: 127.0.0.1:8000
+        #命名空间。默认为public 可以不写
+        #        namespace: public
+        #配置群组
+        group: dawn
+        #配置文件名 没有默认为${spring.application.name} 指定读取基础配置
+        #prefix: dawn_basic
+        #指定文件后缀
+        file-extension: yaml
+        #设置配置优先级
+        extension-configs[0]:
+          #读取基础配置
+          data-id: dawn_basic.yaml
+          group: dawn
+          # 配置修改后是否自动更新
+          refresh: true
+        extension-configs[1]:
+          #读取auth配置
+          data-id: dawn_dev.yaml
+          group: dawn
+          # 配置修改后是否自动更新
+          refresh: true
+
+      #服务中心配置
+      discovery:
+        server-addr: 127.0.0.1:8000
+

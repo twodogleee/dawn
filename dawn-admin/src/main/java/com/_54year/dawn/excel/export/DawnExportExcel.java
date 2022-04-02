@@ -79,7 +79,7 @@ public class DawnExportExcel {
 			long count = countDownLatch.getCount();
 
 			DawnExportExcelCache<ExcelDemo> cache = new DawnExportExcelCache<>(10);
-			for (int i = 1; i <= 100; i++) {
+			for (int i = 1; i <= 200; i++) {
 				ExcelDemoReq param = new ExcelDemoReq();
 				param.setPageSize(1000);
 				param.setPageNum(i);
@@ -95,7 +95,7 @@ public class DawnExportExcel {
 					excelWriter = EasyExcel.write(fileName, ExcelDemo.class).build();
 					// 这里注意 如果同一个sheet只要创建一次
 					WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
-					for (int i = 1; i <= 100; i++) {
+					for (int i = 1; i <= 200; i++) {
 						List<ExcelDemo> data = cache.getPageData();
 //						log.info("===============" + data.toString());
 						log.info("===============当前写出" + i + "页================");

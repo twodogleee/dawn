@@ -46,6 +46,7 @@
         <module>dawn-generator</module>
         <module>dawn-redis-spring-boot-starter</module>
         <module>dawn-util</module>
+        <module>dawn-excel</module>
     </modules>
 
     <!--    公共依赖-->
