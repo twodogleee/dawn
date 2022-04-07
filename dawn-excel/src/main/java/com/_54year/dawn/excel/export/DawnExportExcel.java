@@ -1,8 +1,6 @@
 package com._54year.dawn.excel.export;
 
 import com._54year.dawn.core.excetion.DawnBusinessException;
-import com._54year.dawn.excel.entity.ExcelDemo;
-import com._54year.dawn.excel.entity.ExcelDemoReq;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
@@ -11,11 +9,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
 
 /**
  * 导出Excel实现
@@ -26,8 +21,11 @@ import java.util.concurrent.*;
 @Slf4j
 public class DawnExportExcel {
 
-	@Resource(name = "asyncServiceExecutor")
-	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+	@Resource(name = "handleDataExecutor")
+	private ThreadPoolTaskExecutor handleDataExecutor;
+
+	@Resource(name = "writeDataExecutor")
+	private ThreadPoolTaskExecutor writeDataExecutor;
 	/**
 	 * 使用spring自动注入
 	 */
@@ -51,17 +49,51 @@ public class DawnExportExcel {
 		return service;
 	}
 
+	/**
+	 * 根据配置类导出Excel
+	 *
+	 * @param param       请求参数
+	 * @param writeClass  easyExcel相关类
+	 * @param serviceName 调用服务名
+	 * @param <T>         实体类
+	 */
+	public <T> void exportExcelByClass(DawnExportExcelBasicParam param, Class<T> writeClass, String serviceName) {
+		try {
+			//任务状态
+			ExcelTaskStatus taskStatus = new ExcelTaskStatus();
+			//本地缓存
+			DawnExportExcelCache<T> cache = new DawnExportExcelCache<>(10, taskStatus);
+			//最大条目数
+			int total = serviceMap.get(serviceName).getTotal();
+			//页面大小
+			int pageSize = param.getPageSize();
+			//最大页数
+			int maxPageNum = (total + pageSize - 1) / pageSize;
+			//循环建立数据处理任务
+			for (int i = 1; i <= maxPageNum; i++) {
+				DawnExportExcelBasicParam nowPageParam = new DawnExportExcelBasicParam();
+				nowPageParam.setPageNum(i);
+				nowPageParam.setPageSize(pageSize);
+				//执行数据处理任务
+				handleDataExecutor.execute(new HandleDataTask<>(nowPageParam, serviceName, cache, taskStatus));
+			}
+			//执行写出Excel任务
+			writeDataExecutor.execute(new WriteExcelTask<>(cache, taskStatus, maxPageNum, writeClass));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void repeatedWrite() {
 		// 方法1 如果写到同一个sheet
 //		String fileName = "D:\\workspace\\demo\\dawn\\dawn-admin\\src\\main\\resources\\" + System.currentTimeMillis() + ".xlsx";
 //		ExcelWriter excelWriter = null;
-		long start = System.currentTimeMillis();
-		try {
-//			// 这里 需要指定写用哪个class去写
+		//			// 这里 需要指定写用哪个class去写
 //			excelWriter = EasyExcel.write(fileName, ExcelDemo.class).build();
 //			// 这里注意 如果同一个sheet只要创建一次
 //			WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
-			// 去调用写入,这里我调用了五次，实际使用时根据数据库分页的总的页数来
+		// 去调用写入,这里我调用了五次，实际使用时根据数据库分页的总的页数来
 //			JSONObject param = new JSONObject();
 //			param.put("pageSize", 1000);
 //			for (int i = 1; i <= 100; i++) {
@@ -71,50 +103,6 @@ public class DawnExportExcel {
 //				excelWriter.write(data, writeSheet);
 //
 //			}
-
-
-			ExcelTaskStatus taskStatus = new ExcelTaskStatus();
-			DawnExportExcelCache<ExcelDemo> cache = new DawnExportExcelCache<>(10, taskStatus);
-
-			for (int i = 1; i <= 200; i++) {
-				ExcelDemoReq param = new ExcelDemoReq();
-				param.setPageSize(1000);
-				param.setPageNum(i);
-				ExportExcelTask futureTask = new ExportExcelTask<>(param, DawnExcelConstants.EXCEL_DEMO, cache, taskStatus);
-
-				threadPoolTaskExecutor.execute(futureTask);
-			}
-			new Thread(() -> {// 分页去数据库查询数据 这里可以去数据库查询每一页的数据
-				String fileName = "D:\\workspace\\demo\\dawn\\dawn-excel\\src\\main\\resources\\" + System.currentTimeMillis() + ".xlsx";
-				ExcelWriter excelWriter = null;
-				try {
-					// 这里 需要指定写用哪个class去写
-					excelWriter = EasyExcel.write(fileName, ExcelDemo.class).build();
-					// 这里注意 如果同一个sheet只要创建一次
-					WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
-					for (int i = 1; i <= 200; i++) {
-						if (taskStatus.checkTaskError()) {
-							break;
-						}
-						List<ExcelDemo> data = cache.getPageData();
-//						log.info("===============" + data.toString());
-						log.info("===============当前写出" + i + "页================");
-						excelWriter.write(data, writeSheet);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					// 千万别忘记finish 会帮忙关闭流
-					if (excelWriter != null) {
-						excelWriter.finish();
-					}
-				}
-				log.info("=====================写出完毕");
-				log.info("===================导出耗时" + (System.currentTimeMillis() - start) + "毫秒");
-			}).start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 //		finally {
 //			// 千万别忘记finish 会帮忙关闭流
 //			if (excelWriter != null) {
@@ -166,8 +154,12 @@ public class DawnExportExcel {
 
 	}
 
-
-	class ExportExcelTask<T> implements Runnable {
+	/**
+	 * 数据处理任务
+	 *
+	 * @param <T>
+	 */
+	class HandleDataTask<T> implements Runnable {
 		/**
 		 * 导出数据查询参数 主要用于分页
 		 */
@@ -186,7 +178,7 @@ public class DawnExportExcel {
 		 */
 		private final ExcelTaskStatus excelTaskStatus;
 
-		public ExportExcelTask(DawnExportExcelBasicParam param, String serviceName, DawnExportExcelCache<T> dawnExportExcelCache, ExcelTaskStatus excelTaskStatus) {
+		public HandleDataTask(DawnExportExcelBasicParam param, String serviceName, DawnExportExcelCache<T> dawnExportExcelCache, ExcelTaskStatus excelTaskStatus) {
 			this.param = param;
 			this.serviceName = serviceName;
 			this.dawnExportExcelCache = dawnExportExcelCache;
@@ -195,22 +187,82 @@ public class DawnExportExcel {
 
 		@Override
 		public void run() {
-			if (excelTaskStatus.checkTaskError()) {
+			if (excelTaskStatus.checkTaskError(param.getPageNum())) {
 				return;
 			}
-			if (param.getPageNum() == 5) {
-				excelTaskStatus.setErrorFlag(false);
-			}
 			try {
-				log.info("=============" + LocalDateTime.now().toString() + "name=" + Thread.currentThread().getName());
 				// 分页去数据库查询数据 这里可以去数据库查询每一页的数据
 				List<T> data = getExportService(serviceName).handleData(param);
 				dawnExportExcelCache.savePageData(param.getPageNum(), data);
 			} catch (Exception e) {
+				excelTaskStatus.setErrorFlag(true, 5);
 				log.error("导出异常", e);
-
 			}
 		}
 	}
 
+	/**
+	 * 异步写出任务
+	 *
+	 * @param <T> 类型
+	 */
+	static class WriteExcelTask<T> implements Runnable {
+		/**
+		 * 导出数据缓存
+		 */
+		private final DawnExportExcelCache<T> dawnExportExcelCache;
+
+		/**
+		 * excel导出状态
+		 */
+		private final ExcelTaskStatus excelTaskStatus;
+		/**
+		 * 最大页码
+		 */
+		private final int maxPageNum;
+		/**
+		 * 写入类
+		 */
+		private final Class<T> writClass;
+
+		public WriteExcelTask(DawnExportExcelCache<T> dawnExportExcelCache, ExcelTaskStatus excelTaskStatus, int maxPageNum, Class<T> writClass) {
+			this.dawnExportExcelCache = dawnExportExcelCache;
+			this.excelTaskStatus = excelTaskStatus;
+			this.maxPageNum = maxPageNum;
+			this.writClass = writClass;
+		}
+
+		@Override
+		public void run() {
+			String fileName = "D:\\workspace\\demo\\dawn\\dawn-excel\\src\\main\\resources\\" + System.currentTimeMillis() + ".xlsx";
+			ExcelWriter excelWriter = null;
+			long start = System.currentTimeMillis();
+			try {
+				// 这里 需要指定写用哪个class去写
+				excelWriter = EasyExcel.write(fileName, writClass).build();
+				// 这里注意 如果同一个sheet只要创建一次
+				WriteSheet writeSheet = EasyExcel.writerSheet("模板").build();
+				for (int i = 1; i <= maxPageNum; i++) {
+					//如果线程出现异常则结束
+					if (excelTaskStatus.checkTaskError(i)) {
+						break;
+					}
+					List<T> data = dawnExportExcelCache.getPageData();
+					log.info("===============当前写出" + i + "页================");
+					excelWriter.write(data, writeSheet);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				//执行完毕后清除本地缓存
+				dawnExportExcelCache.clearCache();
+				// 千万别忘记finish 会帮忙关闭流
+				if (excelWriter != null) {
+					excelWriter.finish();
+				}
+			}
+			log.info("=====================写出完毕");
+			log.info("===================导出耗时" + (System.currentTimeMillis() - start) + "毫秒");
+		}
+	}
 }

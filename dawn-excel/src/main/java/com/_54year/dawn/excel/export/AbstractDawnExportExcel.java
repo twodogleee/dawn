@@ -17,4 +17,11 @@ public abstract class AbstractDawnExportExcel {
 	 */
 	abstract public <T> List<T> handleData(DawnExportExcelBasicParam param);
 
+	/**
+	 * 获取最大条目数
+	 *
+	 * @return 最大条目数
+	 */
+	abstract public int getTotal();
+
 }

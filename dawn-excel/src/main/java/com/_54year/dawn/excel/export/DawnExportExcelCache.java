@@ -2,6 +2,7 @@ package com._54year.dawn.excel.export;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -49,7 +50,7 @@ public class DawnExportExcelCache<T> {
 		//如果当前页并非执行顺序 则循环等待
 		while (nowPage.get() != page) {
 			//检测是否可以执行
-			if (this.excelTaskStatus.checkTaskError()) {
+			if (this.excelTaskStatus.checkTaskError(page)) {
 				return false;
 			}
 			System.out.println(Thread.currentThread().getName() + "开始自旋,当前线程页码" + page + ",当前缓存页码" + nowPage.get());
@@ -69,11 +70,18 @@ public class DawnExportExcelCache<T> {
 	 */
 	public List<T> getPageData() throws InterruptedException {
 		//检测是否可以执行
-		if (this.excelTaskStatus.checkTaskError()) {
-			return null;
-		}
+//		if (this.excelTaskStatus.checkTaskError()) {
+//			return null;
+//		}
 		//使用take 如果没有数据则等待
-		return this.dataCache.take();
+		return this.dataCache.poll(30, TimeUnit.MILLISECONDS);
+	}
+
+	/**
+	 * 清空缓存
+	 */
+	public void clearCache() {
+		this.dataCache.clear();
 	}
 
 }

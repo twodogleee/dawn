@@ -3,6 +3,8 @@ package com._54year.dawn.excel.controller;
 
 import com._54year.dawn.common.annotation.DawnResult;
 import com._54year.dawn.excel.entity.ExcelDemo;
+import com._54year.dawn.excel.entity.ExcelDemoReq;
+import com._54year.dawn.excel.export.DawnExcelConstants;
 import com._54year.dawn.excel.export.DawnExportExcel;
 import com._54year.dawn.excel.service.ExcelDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +51,9 @@ public class ExcelDemoController {
 	@DawnResult
 	@RequestMapping("/exportExcel")
 	public Object repeatedWrite() {
-		dawnExportExcel.repeatedWrite();
+		ExcelDemoReq param = new ExcelDemoReq();
+		param.setPageSize(100);
+		dawnExportExcel.exportExcelByClass(param, ExcelDemo.class, DawnExcelConstants.EXCEL_DEMO);
 		return true;
 	}
 

@@ -29,5 +29,10 @@ public class ExportDawnDemoImpl extends AbstractDawnExportExcel {
 		return (List<T>) dataList;
 	}
 
+	@Override
+	public int getTotal() {
+		return 5000;
+	}
+
 
 }
