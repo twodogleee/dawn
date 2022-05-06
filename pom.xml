@@ -58,6 +58,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
 
         <!--        springcloud 基础starter-->
 <!--        <dependency>-->

@@ -1,5 +1,6 @@
 package com._54year.dawn.excel.entity;
 
+import com._54year.dawn.common.annotation.EncryptData;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -22,12 +23,14 @@ public class ExcelDemo implements Serializable {
 	@ExcelProperty("ID")
 	private Integer id;
 	@ExcelProperty("姓名")
+	@EncryptData
 	private String fullName;
 	@ExcelProperty("年龄")
 	private Integer age;
 	@ExcelProperty("详细地址")
 	private String address;
 	@ExcelProperty("电话号码")
+	@EncryptData
 	private String phone;
 	@ExcelProperty("邮箱")
 	private String email;
