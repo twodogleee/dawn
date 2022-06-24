@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com._54year.dawn.excel.dao.mapper.ExcelExportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com._54year.dawn.excel.entity.ExcelExport">
+        <id column="id" property="id" />
+        <result column="source_type" property="sourceType" />
+        <result column="export_type" property="exportType" />
+        <result column="export_content" property="exportContent" />
+        <result column="export_file_name" property="exportFileName" />
+        <result column="file_download_url" property="fileDownloadUrl" />
+        <result column="export_total" property="exportTotal" />
+        <result column="export_status" property="exportStatus" />
+        <result column="export_desc" property="exportDesc" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
