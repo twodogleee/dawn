@@ -1,6 +1,7 @@
 package com._54year.dawn.excel.export;
 
 import com._54year.dawn.core.excetion.DawnBusinessException;
+import com._54year.dawn.excel.entity.ExportParam;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
@@ -71,7 +72,7 @@ public class DawnExportExcel {
 			int maxPageNum = (total + pageSize - 1) / pageSize;
 			//循环建立数据处理任务
 			for (int i = 1; i <= maxPageNum; i++) {
-				DawnExportExcelBasicParam nowPageParam = new DawnExportExcelBasicParam();
+				ExportParam nowPageParam = new ExportParam();
 				nowPageParam.setPageNum(i);
 				nowPageParam.setPageSize(pageSize);
 				//执行数据处理任务
@@ -163,7 +164,7 @@ public class DawnExportExcel {
 		/**
 		 * 导出数据查询参数 主要用于分页
 		 */
-		private final DawnExportExcelBasicParam param;
+		private final ExportParam param;
 		/**
 		 * 实现类
 		 */
@@ -178,7 +179,7 @@ public class DawnExportExcel {
 		 */
 		private final ExcelTaskStatus excelTaskStatus;
 
-		public HandleDataTask(DawnExportExcelBasicParam param, String serviceName, DawnExportExcelCache<T> dawnExportExcelCache, ExcelTaskStatus excelTaskStatus) {
+		public HandleDataTask(ExportParam param, String serviceName, DawnExportExcelCache<T> dawnExportExcelCache, ExcelTaskStatus excelTaskStatus) {
 			this.param = param;
 			this.serviceName = serviceName;
 			this.dawnExportExcelCache = dawnExportExcelCache;

@@ -8,11 +8,12 @@ package com._54year.dawn.excel.task;
  */
 @FunctionalInterface
 public interface DawnTask<T> {
+
 	/**
-	 * 执行方法
 	 *
-	 * @return 执行结果
-	 * @throws Exception 执行异常
+	 * @param param
+	 * @return
+	 * @throws Exception
 	 */
-	T call() throws Exception;
+	T call(Object param) throws Exception;
 }

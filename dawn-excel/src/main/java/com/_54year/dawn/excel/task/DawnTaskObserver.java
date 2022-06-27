@@ -11,29 +11,33 @@ public interface DawnTaskObserver<T> {
 	 * 准备执行
 	 *
 	 * @param thread 执行线程
+	 * @param param  参数
 	 */
-	void onStart(Thread thread);
+	void onStart(Thread thread, Object param);
 
 	/**
 	 * 执行中
 	 *
 	 * @param thread 执行线程
+	 * @param param  执行参数
 	 */
-	void onRunning(Thread thread);
+	void onRunning(Thread thread, Object param);
 
 	/**
 	 * 执行完成
 	 *
 	 * @param thread 执行线程
 	 * @param result 执行结果
+	 * @param param  执行参数
 	 */
-	void onFinish(Thread thread, T result);
+	void onFinish(Thread thread, T result, Object param);
 
 	/**
 	 * 执行错误
 	 *
 	 * @param thread 执行线程
 	 * @param e      执行异常
+	 * @param param  执行参数
 	 */
-	void onError(Thread thread, Exception e);
+	void onError(Thread thread, Exception e, Object param);
 }

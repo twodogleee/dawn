@@ -5,7 +5,7 @@ package com._54year.dawn.excel.task;
  *
  * @author Andersen
  */
-public interface DawnTaskSubject {
+public interface DawnTaskSubject extends Runnable {
 	/**
 	 * 执行状态
 	 */

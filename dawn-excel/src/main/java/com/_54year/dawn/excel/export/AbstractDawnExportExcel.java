@@ -1,5 +1,7 @@
 package com._54year.dawn.excel.export;
 
+import com._54year.dawn.excel.entity.ExportParam;
+
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public abstract class AbstractDawnExportExcel {
 	 * @param <T>
 	 * @return
 	 */
-	abstract public <T> List<T> handleData(DawnExportExcelBasicParam param);
+	abstract public <T> T handleData(ExportParam param);
 
 	/**
 	 * 获取最大条目数

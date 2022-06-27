@@ -10,7 +10,7 @@ import com._54year.dawn.excel.task.DawnTaskSubject;
  * @param <T> 直接结果类型
  * @author Andersen
  */
-public class DawnTaskSubjectImpl<T> implements DawnTaskSubject, Runnable {
+public class DawnTaskSubjectImpl<T> implements DawnTaskSubject {
 	/**
 	 * 观察者 回调实现类
 	 */
@@ -20,14 +20,17 @@ public class DawnTaskSubjectImpl<T> implements DawnTaskSubject, Runnable {
 	 */
 	private final DawnTask<T> dawnTask;
 
+	private Object param;
+
 	/**
 	 * 当前任务执行状态
 	 */
 	private State state;
 
-	public DawnTaskSubjectImpl(DawnTaskObserver<T> dawnTaskObserver, DawnTask<T> dawnTask) {
+	public DawnTaskSubjectImpl(DawnTaskObserver<T> dawnTaskObserver, DawnTask<T> dawnTask, Object param) {
 		this.dawnTaskObserver = dawnTaskObserver;
 		this.dawnTask = dawnTask;
+		this.param = param;
 	}
 
 	/**
@@ -55,17 +58,17 @@ public class DawnTaskSubjectImpl<T> implements DawnTaskSubject, Runnable {
 		try {
 			switch (state) {
 				case STARTED:
-					this.dawnTaskObserver.onStart(Thread.currentThread());
+					this.dawnTaskObserver.onStart(Thread.currentThread(), null);
 					break;
 				case RUNNING:
-					this.dawnTaskObserver.onRunning(Thread.currentThread());
+					this.dawnTaskObserver.onRunning(Thread.currentThread(), null);
 					break;
 				case DONE:
-					this.dawnTaskObserver.onFinish(Thread.currentThread(), result);
+					this.dawnTaskObserver.onFinish(Thread.currentThread(), result, null);
 					break;
 				case ERROR:
 				default:
-					this.dawnTaskObserver.onError(Thread.currentThread(), e);
+					this.dawnTaskObserver.onError(Thread.currentThread(), e, null);
 			}
 		} catch (Exception exception) {
 			if (state == State.ERROR) {
@@ -88,13 +91,13 @@ public class DawnTaskSubjectImpl<T> implements DawnTaskSubject, Runnable {
 	 * 多线程任务具体执行方法
 	 */
 	@Override
-	public void run() {
+	public final void run() {
 		//开始执行
 		this.updateState(State.STARTED, null, null);
 		try {
 			//执行中
 			this.updateState(State.RUNNING, null, null);
-			T result = this.dawnTask.call();
+			T result = this.dawnTask.call(this.param);
 			//完成
 			this.updateState(State.DONE, result, null);
 		} catch (Exception e) {
