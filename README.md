@@ -59,41 +59,9 @@
 ![](https://github.com/suucx/dawn/blob/master/script/1.png)
 
 
-#### [开发文档](https://github.com/suucx/dawn/blob/master/script/doc/dawn-doc.md)
+#### [项目说明文档](https://github.com/suucx/dawn/blob/master/script/doc/dawn-doc.md)
 
 
-
-#### 更新说明
-##### 2021-01
-```
-1.新增redis配置及操作相关starter
-
-```
-
-##### 2020-10
-```
-1.auth新增contentPath,没有contentPath导致通关网关使用授权码模式获取token失败
-2.新增网关Hystrix熔断配置,修改配置中心配置见script
-```
-##### 2020-09
-```
-
-1.新增@RequestUser注解用于绑定请求的用户信息
-2.新增CurrentUser参数解析器绑定用户信息
-3.新增MybatisPlus分页插件配置
-4.新增角色管理相关功能
-5.解决client_credentials授权模式获取token时保存的问题;
-6.解决使用client_credentials授权模式时被权限管理拦截的问题(注:client_credentials授权模式只能开放给服务端,因为该授权模式将无视任何权限)
-7.解决fegin调用token传递的问题
-8.完成了网关通过查询数据库中的url角色信息来进行统一的鉴权
-9.提供了HasRole注解对接口进行单独鉴权
-10.增加了token增强
-
-
-后续计划url与角色关联信息放到redis
-然后需要增加同一client_id重复登录时使上一个token失效来解决Jwttoken下发后无法主动失效问题
-
-```
 
 
 

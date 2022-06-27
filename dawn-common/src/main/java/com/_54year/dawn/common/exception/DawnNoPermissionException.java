@@ -2,6 +2,11 @@ package com._54year.dawn.common.exception;
 
 import com._54year.dawn.core.excetion.DawnBusinessException;
 
+/**
+ * 权限判断异常
+ *
+ * @author Andersen
+ */
 public class DawnNoPermissionException extends DawnBusinessException {
 	public DawnNoPermissionException() {
 		super();

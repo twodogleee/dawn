@@ -23,7 +23,7 @@
         <!--        nacos版本服务中心/配置中心-->
         <nacos.version>2.2.1.RELEASE</nacos.version>
         <!--        fastjson版本-->
-        <fastjson.version>1.2.68</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <!--        mysql驱动版本-->
         <mysql-connector.version>8.0.16</mysql-connector.version>
         <!--druid连接池-->
@@ -45,6 +45,8 @@
         <module>dawn-jwt-spring-boot-starter</module>
         <module>dawn-generator</module>
         <module>dawn-redis-spring-boot-starter</module>
+        <module>dawn-util</module>
+        <module>dawn-excel</module>
     </modules>
 
     <!--    公共依赖-->
@@ -56,6 +58,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
 
         <!--        springcloud 基础starter-->
 <!--        <dependency>-->

@@ -8,7 +8,7 @@ spring:
       #配置中心配置
       config:
         #配置中心地址
-        server-addr: 192.168.1.1:8903
+        server-addr: 127.0.0.1:8000
         #命名空间。默认为public 可以不写
         #        namespace: public
         #配置群组
@@ -30,7 +30,8 @@ spring:
           group: dawn
           # 配置修改后是否自动更新
           refresh: true
+
       #服务中心配置
       discovery:
-        server-addr: 192.168.1.1:8903
+        server-addr: 127.0.0.1:8000
 

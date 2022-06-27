@@ -2,6 +2,7 @@ package com._54year.dawn.auth.config;
 
 import com._54year.dawn.jwt.config.JwtProperties;
 import com._54year.dawn.jwt.exception.DawnJwtServiceException;
+import com._54year.dawn.redis.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jose4j.json.JsonUtil;
 import org.jose4j.jwk.RsaJsonWebKey;
@@ -56,6 +57,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Autowired
 	@Qualifier("dawnUserDetailsServiceImpl")
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private RedisUtil redisUtil;
+
+
 	/**
 	 * Jwt配置
 	 */
@@ -221,7 +226,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	 */
 	@Bean
 	public TokenEnhancer dawnTokenEnhancer() {
-		return new DawnTokenEnhancer();
+		return new DawnTokenEnhancer(redisUtil);
 	}
 
 
