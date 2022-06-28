@@ -2,6 +2,7 @@ package com._54year.dawn.excel.task.impl;
 
 import com._54year.dawn.excel.entity.ExportParam;
 import com._54year.dawn.excel.export.AbstractDawnExportExcel;
+import com._54year.dawn.excel.task.DawnCache;
 import com._54year.dawn.excel.task.DawnTaskObserver;
 import com._54year.dawn.excel.task.DawnTaskSubject;
 
@@ -28,20 +29,26 @@ public class ExportDataTaskSubject<T> implements DawnTaskSubject {
 	private final DawnTaskObserver<T> dawnTaskObserver;
 
 	/**
+	 * 缓存
+	 */
+	private final DawnCache<T> dawnCache;
+
+	/**
 	 * 当前任务执行状态
 	 */
 	private State state;
 
 
-	public ExportDataTaskSubject(ExportParam<?> param, AbstractDawnExportExcel service, DawnTaskObserver<T> dawnTaskObserver) {
+	public ExportDataTaskSubject(ExportParam<?> param, AbstractDawnExportExcel service, DawnTaskObserver<T> dawnTaskObserver, DawnCache<T> dawnCache) {
 		this.param = param;
 		this.service = service;
 		this.dawnTaskObserver = dawnTaskObserver;
+		this.dawnCache = dawnCache;
 	}
 
 	@Override
 	public void run() {
-		if (dawnTaskObserver == null) {
+		if (dawnTaskObserver == null || dawnCache == null || !dawnCache.getExecuteFlag()) {
 			return;
 		}
 		//开始
@@ -56,11 +63,11 @@ public class ExportDataTaskSubject<T> implements DawnTaskSubject {
 			T data = service.handleData(param);
 			//完成
 			this.state = State.DONE;
-			this.dawnTaskObserver.onFinish(Thread.currentThread(), data, param);
+			this.dawnTaskObserver.onFinish(Thread.currentThread(), data, param, dawnCache);
 		} catch (Exception e) {
 			//错误
 			this.state = State.ERROR;
-			this.dawnTaskObserver.onError(Thread.currentThread(), e, param);
+			this.dawnTaskObserver.onError(Thread.currentThread(), e, param, dawnCache);
 		}
 	}
 

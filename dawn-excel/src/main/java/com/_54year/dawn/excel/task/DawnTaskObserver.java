@@ -26,18 +26,20 @@ public interface DawnTaskObserver<T> {
 	/**
 	 * 执行完成
 	 *
-	 * @param thread 执行线程
-	 * @param result 执行结果
-	 * @param param  执行参数
+	 * @param thread    执行线程
+	 * @param result    执行结果
+	 * @param param     执行参数
+	 * @param dawnCache 缓存数据
 	 */
-	void onFinish(Thread thread, T result, Object param);
+	void onFinish(Thread thread, T result, Object param, DawnCache<T> dawnCache);
 
 	/**
 	 * 执行错误
 	 *
-	 * @param thread 执行线程
-	 * @param e      执行异常
-	 * @param param  执行参数
+	 * @param thread    执行线程
+	 * @param e         执行异常
+	 * @param param     执行参数
+	 * @param dawnCache 缓存数据
 	 */
-	void onError(Thread thread, Exception e, Object param);
+	void onError(Thread thread, Exception e, Object param, DawnCache<T> dawnCache);
 }

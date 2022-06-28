@@ -31,7 +31,7 @@ public class ExportDawnDemoImpl extends AbstractDawnExportExcel {
 
 	@Override
 	public int getTotal() {
-		return 5000;
+		return 200008;
 	}
 
 

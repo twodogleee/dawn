@@ -64,11 +64,11 @@ public class DawnTaskSubjectImpl<T> implements DawnTaskSubject {
 					this.dawnTaskObserver.onRunning(Thread.currentThread(), null);
 					break;
 				case DONE:
-					this.dawnTaskObserver.onFinish(Thread.currentThread(), result, null);
+					this.dawnTaskObserver.onFinish(Thread.currentThread(), result, null, null);
 					break;
 				case ERROR:
 				default:
-					this.dawnTaskObserver.onError(Thread.currentThread(), e, null);
+					this.dawnTaskObserver.onError(Thread.currentThread(), e, null, null);
 			}
 		} catch (Exception exception) {
 			if (state == State.ERROR) {
