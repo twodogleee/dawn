@@ -63,8 +63,8 @@ public class ExportExcel {
 	 * @param serviceName 调用服务名
 	 * @param <T>         实体类
 	 */
-	public <T> void exportExcelByClass(DawnExportExcelBasicParam param, Class<T> writeClass, String serviceName) {
-		DawnCache<?> dawnCache = new JvmCacheLinkedBlockingQueue<>(10);
+	public <T, D> void exportExcelByClass(DawnExportExcelBasicParam param, Class<T> writeClass, String serviceName) {
+		DawnCache<List<D>> dawnCache = new JvmCacheLinkedBlockingQueue<>(10);
 		try {
 			AbstractDawnExportExcel service = serviceMap.get(serviceName);
 			//最大条目数
@@ -75,7 +75,7 @@ public class ExportExcel {
 			int maxPageNum = (total + pageSize - 1) / pageSize;
 			//循环建立数据处理任务
 			for (int i = 1; i <= maxPageNum; i++) {
-				ExportParam nowPageParam = new ExportParam();
+				ExportParam<DawnExportExcelBasicParam> nowPageParam = new ExportParam<>();
 				nowPageParam.setPageNum(i);
 				nowPageParam.setPageSize(pageSize);
 				//执行数据处理任务
@@ -94,7 +94,7 @@ public class ExportExcel {
 					if (!dawnCache.getExecuteFlag()) {
 						break;
 					}
-					List data = (List) dawnCache.getData();
+					List<D> data = dawnCache.getData();
 					log.info("===============当前写出" + i + "页================" + "最大页:" + maxPageNum);
 					excelWriter.write(data, writeSheet);
 				}
@@ -115,7 +115,6 @@ public class ExportExcel {
 			dawnCache.onError();
 			e.printStackTrace();
 		}
-
 	}
 
 
