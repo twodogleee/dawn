@@ -4,7 +4,7 @@
 	<strong>dawn取自黎明破晓之意</strong>
 </p>
 <p align="center">
-	<a href="http://www.54year.com"><img src="https://www.54year.com/usr/uploads/2021/06/1117470442.png" height="300px" width="300px"></a>
+	<a href="http://www.54year.com"><img src="https://www.54year.com/assets/images/logo.png" height="300px" width="300px"></a>
 </p>
 <p align="center">
     <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" rel="nofollow">
